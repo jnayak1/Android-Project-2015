@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Game Practice</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <color name="red">#FF0000</color>
+    <color name="black">#000000</color>
+
+</resources>
