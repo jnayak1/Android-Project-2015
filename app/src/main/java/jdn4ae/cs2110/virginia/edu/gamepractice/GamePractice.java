@@ -22,16 +22,23 @@ import android.widget.Toast;
 public class GamePractice extends Activity implements SurfaceHolder.Callback, MoveButton, OtherButton {
 
     MapSurfaceView mapSurfaceView;
-    Bitmap bitmap;
+    Bitmap characterBitMap;
+    Bitmap mapBitMap;
+    Rect surfaceViewBitMapRect;
     float characterX,characterY;
-    float mapSurfaceViewWidth;
-    float mapSurfaceViewHeight;
+    float mapBitMapWidth, mapBitMapHeight;
+    float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mapSurfaceView = new MapSurfaceView(this);
-        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
+        characterBitMap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        mapBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.background, options);
+        mapBitMapHeight = mapBitMap.getHeight();
+        mapBitMapWidth = mapBitMap.getWidth();
         setContentView(mapSurfaceView);
         characterX = 0;
         characterY = 0;
@@ -41,14 +48,18 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                 @Override
                 public void onGlobalLayout() {
                     mapSurfaceView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    mapSurfaceViewWidth = mapSurfaceView.getWidth();
-                    mapSurfaceViewHeight = mapSurfaceView.getHeight();
+                    surfaceViewBitMapWidth = mapSurfaceView.getWidth();
+                    surfaceViewBitMapHeight = mapSurfaceView.getHeight();
+                    surfaceViewBitMapRect = new Rect(0,0,
+                            Math.round(surfaceViewBitMapWidth),Math.round(surfaceViewBitMapHeight));
 
-                    characterY = mapSurfaceViewHeight / 2;
-                    characterX = mapSurfaceViewWidth /2;
+                    characterY = surfaceViewBitMapHeight / 2;
+                    characterX = surfaceViewBitMapWidth /2;
                 }
             });
         }
+
+
 
     }
 
@@ -56,8 +67,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     protected void onResume() {
         super.onResume();
         mapSurfaceView.onResumeMapSurfaceView();
-        characterX = mapSurfaceView.getHeight() / 2;
-        characterY = mapSurfaceView.getWidth() / 2;
 
     }
 
@@ -87,6 +96,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         Thread thread = null;
         SurfaceHolder surfaceHolder;
         volatile boolean running = false;
+        float surfaceViewBitMapRectX,surfaceViewBitMapRectY;
 
         public MapSurfaceView(Context context) {
             super(context);
@@ -118,14 +128,23 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                 if(surfaceHolder.getSurface().isValid()) {
 
                     Canvas canvas = surfaceHolder.lockCanvas();
+//                    Bitmap alteredBitmap = Bitmap.createBitmap(Math.round(mapBitMapWidth),
+//                            Math.round(mapBitMapHeight),mapBitMap.getConfig());
 
                     // draw here
-                    canvas.drawColor(Color.RED);
-                    canvas.drawBitmap(bitmap,characterX - (bitmap.getWidth() / 2),
-                            characterY - (bitmap.getHeight() /2) ,null);
+                    canvas.drawBitmap(mapBitMap,null,surfaceViewBitMapRect,null);
+                    canvas.drawBitmap(characterBitMap,characterX - (characterBitMap.getWidth() / 2),
+                            characterY - (characterBitMap.getHeight() /2) ,null);
 
 
                     surfaceHolder.unlockCanvasAndPost(canvas);
+
+
+                    try{
+                        Thread.sleep(5000);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
                 }
             }
         }
