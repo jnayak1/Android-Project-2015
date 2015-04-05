@@ -1,10 +1,18 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Toast;
@@ -12,32 +20,76 @@ import android.widget.Toast;
 
 public class GamePractice extends Activity implements  MoveButton, OtherButton {
 
+    MapSurfaceView mapSurfaceView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_practice);
+        mapSurfaceView = new MapSurfaceView(this);
+        setContentView(mapSurfaceView);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_practice, menu);
-        return true;
+    protected void onResume() {
+        super.onResume();
+        mapSurfaceView.onResumeMapSurfaceView();
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void onPause() {
+        super.onPause();
+        mapSurfaceView.onPauseMapSurfaceView();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+    public class MapSurfaceView extends SurfaceView implements Runnable {
+        Thread thread = null;
+        SurfaceHolder surfaceHolder;
+        volatile boolean running = false;
+        private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        public MapSurfaceView(Context context) {
+            super(context);
+            surfaceHolder = getHolder();
+        }
+        public void onResumeMapSurfaceView(){
+            running = true;
+            thread = new Thread(this);
+            thread.start();
         }
 
-        return super.onOptionsItemSelected(item);
+        public void onPauseMapSurfaceView(){
+            boolean retry = true;
+            running = false;
+            while(retry){
+                try {
+                    thread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        @Override
+        public void run() {
+            while(running){
+                if(surfaceHolder.getSurface().isValid()) {
+                    Canvas canvas = surfaceHolder.lockCanvas();
+
+                    // draw here
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setStrokeWidth(3);
+                    paint.setColor(Color.RED);
+                    canvas.drawColor(Color.RED);
+
+
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                }
+
+            }
+        }
     }
 
     @Override
