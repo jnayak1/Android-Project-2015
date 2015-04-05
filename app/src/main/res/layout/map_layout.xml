@@ -1,16 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GamePractice"
     android:background="@color/red"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:id="@+id/map_layout">
+    <SurfaceView
+        android:id="@+id/mapView_surface_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Map"
-        android:textSize="50sp"/>
-</LinearLayout>
+</FrameLayout>
