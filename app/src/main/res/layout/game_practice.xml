@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GamePractice"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/layout">
 
-    <SurfaceView
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:id="@+id/map_surface_view"
-        class="jdn4ae.cs2110.virginia.edu.gamepractice.GamePractice.MapSurfaceView"/>
+        class="jdn4ae.cs2110.virginia.edu.gamepractice.MapFragment"/>
 
     <fragment
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,12 +11,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -26,7 +30,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     Bitmap mapBitMap;
     Rect surfaceViewBitMapDSTRect;
     Rect surfaceViewBitMapSRCRect;
-    int moveAmount;
+    int moveAmount = 50;
     float characterX,characterY;
     float mapBitMapWidth, mapBitMapHeight;
     float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
@@ -41,7 +45,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         mapBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.background, options);
         mapBitMapHeight = mapBitMap.getHeight();
         mapBitMapWidth = mapBitMap.getWidth();
-        setContentView(mapSurfaceView);
+        setContentView(R.layout.game_practice);
         characterX = 0;
         characterY = 0;
         ViewTreeObserver viewTreeObserver = mapSurfaceView.getViewTreeObserver();
@@ -93,7 +97,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     }
 
-
     public class MapSurfaceView extends SurfaceView implements Runnable {
         Thread thread = null;
         SurfaceHolder surfaceHolder;
@@ -143,7 +146,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
 
                     try{
-                        Thread.sleep(5000);
+                        Thread.sleep(40);
                     }catch(InterruptedException e){
                         e.printStackTrace();
                     }
@@ -157,9 +160,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         Toast.makeText(GamePractice.this, "rightButtonClicked", Toast.LENGTH_SHORT).show();
         // move surfaceViewSRCRect left
 
-        int left = surfaceViewBitMapSRCRect.left - moveAmount;
+        int left = surfaceViewBitMapSRCRect.left + moveAmount;
         int top = surfaceViewBitMapSRCRect.top;
-        int right = surfaceViewBitMapSRCRect.right - moveAmount;
+        int right = surfaceViewBitMapSRCRect.right + moveAmount;
         int bottom = surfaceViewBitMapSRCRect.bottom;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
@@ -174,9 +177,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         Toast.makeText(GamePractice.this, "leftButtonClicked", Toast.LENGTH_SHORT).show();
         // move surfaceViewSRCRect right
 
-        int left = surfaceViewBitMapSRCRect.left + moveAmount;
+        int left = surfaceViewBitMapSRCRect.left - moveAmount;
         int top = surfaceViewBitMapSRCRect.top;
-        int right = surfaceViewBitMapSRCRect.right + moveAmount;
+        int right = surfaceViewBitMapSRCRect.right - moveAmount;
         int bottom = surfaceViewBitMapSRCRect.bottom;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
@@ -188,9 +191,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         // move surfaceViewSRCRect down
 
         int left = surfaceViewBitMapSRCRect.left;
-        int top = surfaceViewBitMapSRCRect.top + moveAmount;
+        int top = surfaceViewBitMapSRCRect.top - moveAmount;
         int right = surfaceViewBitMapSRCRect.right;
-        int bottom = surfaceViewBitMapSRCRect.bottom + moveAmount;
+        int bottom = surfaceViewBitMapSRCRect.bottom - moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
     }
@@ -199,13 +202,16 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     public void downButtonClick() {
         Toast.makeText(GamePractice.this, "downButtonClicked", Toast.LENGTH_SHORT).show();
         // move surfaceViewSRCRect up
+
         int left = surfaceViewBitMapSRCRect.left;
-        int top = surfaceViewBitMapSRCRect.top - moveAmount;
+        int top = surfaceViewBitMapSRCRect.top + moveAmount;
         int right = surfaceViewBitMapSRCRect.right;
-        int bottom = surfaceViewBitMapSRCRect.bottom - moveAmount;
+        int bottom = surfaceViewBitMapSRCRect.bottom + moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
     }
 
-
+    public MapSurfaceView getMapSurfaceView(){
+        return mapSurfaceView;
+    }
 }
