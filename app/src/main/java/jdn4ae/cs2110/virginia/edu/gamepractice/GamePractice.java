@@ -24,7 +24,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     MapSurfaceView mapSurfaceView;
     Bitmap characterBitMap;
     Bitmap mapBitMap;
-    Rect surfaceViewBitMapRect;
+    Rect surfaceViewBitMapDSTRect;
+    Rect surfaceViewBitMapSRCRect;
+    int moveAmount;
     float characterX,characterY;
     float mapBitMapWidth, mapBitMapHeight;
     float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
@@ -50,9 +52,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                     mapSurfaceView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     surfaceViewBitMapWidth = mapSurfaceView.getWidth();
                     surfaceViewBitMapHeight = mapSurfaceView.getHeight();
-                    surfaceViewBitMapRect = new Rect(0,0,
+                    surfaceViewBitMapDSTRect = new Rect(0,0,
                             Math.round(surfaceViewBitMapWidth),Math.round(surfaceViewBitMapHeight));
-
+                    surfaceViewBitMapSRCRect = new Rect(0,0,500,500);
                     characterY = surfaceViewBitMapHeight / 2;
                     characterX = surfaceViewBitMapWidth /2;
                 }
@@ -132,7 +134,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 //                            Math.round(mapBitMapHeight),mapBitMap.getConfig());
 
                     // draw here
-                    canvas.drawBitmap(mapBitMap,null,surfaceViewBitMapRect,null);
+                    canvas.drawBitmap(mapBitMap,surfaceViewBitMapSRCRect,surfaceViewBitMapDSTRect,null);
                     canvas.drawBitmap(characterBitMap,characterX - (characterBitMap.getWidth() / 2),
                             characterY - (characterBitMap.getHeight() /2) ,null);
 
@@ -153,24 +155,56 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     @Override
     public void rightButtonClick() {
         Toast.makeText(GamePractice.this, "rightButtonClicked", Toast.LENGTH_SHORT).show();
+        // move surfaceViewSRCRect left
+
+        int left = surfaceViewBitMapSRCRect.left - moveAmount;
+        int top = surfaceViewBitMapSRCRect.top;
+        int right = surfaceViewBitMapSRCRect.right - moveAmount;
+        int bottom = surfaceViewBitMapSRCRect.bottom;
+
+        surfaceViewBitMapSRCRect.set(left,top,right,bottom);
+
+
+
 
     }
 
     @Override
     public void leftButtonClick() {
         Toast.makeText(GamePractice.this, "leftButtonClicked", Toast.LENGTH_SHORT).show();
+        // move surfaceViewSRCRect right
 
+        int left = surfaceViewBitMapSRCRect.left + moveAmount;
+        int top = surfaceViewBitMapSRCRect.top;
+        int right = surfaceViewBitMapSRCRect.right + moveAmount;
+        int bottom = surfaceViewBitMapSRCRect.bottom;
+
+        surfaceViewBitMapSRCRect.set(left,top,right,bottom);
     }
 
     @Override
     public void upButtonClick() {
         Toast.makeText(GamePractice.this, "upButtonClicked", Toast.LENGTH_SHORT).show();
+        // move surfaceViewSRCRect down
 
+        int left = surfaceViewBitMapSRCRect.left;
+        int top = surfaceViewBitMapSRCRect.top + moveAmount;
+        int right = surfaceViewBitMapSRCRect.right;
+        int bottom = surfaceViewBitMapSRCRect.bottom + moveAmount;
+
+        surfaceViewBitMapSRCRect.set(left,top,right,bottom);
     }
 
     @Override
     public void downButtonClick() {
         Toast.makeText(GamePractice.this, "downButtonClicked", Toast.LENGTH_SHORT).show();
+        // move surfaceViewSRCRect up
+        int left = surfaceViewBitMapSRCRect.left;
+        int top = surfaceViewBitMapSRCRect.top - moveAmount;
+        int right = surfaceViewBitMapSRCRect.right;
+        int bottom = surfaceViewBitMapSRCRect.bottom - moveAmount;
+
+        surfaceViewBitMapSRCRect.set(left,top,right,bottom);
     }
 
 
