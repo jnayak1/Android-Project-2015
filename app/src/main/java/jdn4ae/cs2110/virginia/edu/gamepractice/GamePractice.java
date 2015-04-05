@@ -15,22 +15,40 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 
-public class GamePractice extends Activity implements  MoveButton, OtherButton {
+public class GamePractice extends Activity implements SurfaceHolder.Callback, MoveButton, OtherButton {
 
     MapSurfaceView mapSurfaceView;
     Bitmap bitmap;
     float characterX,characterY;
+    float mapSurfaceViewWidth;
+    float mapSurfaceViewHeight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mapSurfaceView = new MapSurfaceView(this);
         bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
+        setContentView(mapSurfaceView);
         characterX = 0;
         characterY = 0;
-        setContentView(mapSurfaceView);
+        ViewTreeObserver viewTreeObserver = mapSurfaceView.getViewTreeObserver();
+        if (viewTreeObserver.isAlive()) {
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    mapSurfaceView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    mapSurfaceViewWidth = mapSurfaceView.getWidth();
+                    mapSurfaceViewHeight = mapSurfaceView.getHeight();
+
+                    characterY = mapSurfaceViewHeight / 2;
+                    characterX = mapSurfaceViewWidth /2;
+                }
+            });
+        }
 
     }
 
@@ -38,6 +56,8 @@ public class GamePractice extends Activity implements  MoveButton, OtherButton {
     protected void onResume() {
         super.onResume();
         mapSurfaceView.onResumeMapSurfaceView();
+        characterX = mapSurfaceView.getHeight() / 2;
+        characterY = mapSurfaceView.getWidth() / 2;
 
     }
 
@@ -47,12 +67,26 @@ public class GamePractice extends Activity implements  MoveButton, OtherButton {
         mapSurfaceView.onPauseMapSurfaceView();
     }
 
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
+    }
+
 
     public class MapSurfaceView extends SurfaceView implements Runnable {
         Thread thread = null;
         SurfaceHolder surfaceHolder;
         volatile boolean running = false;
-        private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         public MapSurfaceView(Context context) {
             super(context);
