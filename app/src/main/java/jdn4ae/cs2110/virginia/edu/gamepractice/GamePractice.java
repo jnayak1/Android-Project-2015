@@ -21,11 +21,17 @@ import android.widget.Toast;
 public class GamePractice extends Activity implements  MoveButton, OtherButton {
 
     MapSurfaceView mapSurfaceView;
+    Bitmap bitmap;
+    float characterX,characterY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mapSurfaceView = new MapSurfaceView(this);
+        bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
+        characterX = 0;
+        characterY = 0;
         setContentView(mapSurfaceView);
+
     }
 
     @Override
@@ -76,18 +82,17 @@ public class GamePractice extends Activity implements  MoveButton, OtherButton {
         public void run() {
             while(running){
                 if(surfaceHolder.getSurface().isValid()) {
+
                     Canvas canvas = surfaceHolder.lockCanvas();
 
                     // draw here
-                    paint.setStyle(Paint.Style.STROKE);
-                    paint.setStrokeWidth(3);
-                    paint.setColor(Color.RED);
                     canvas.drawColor(Color.RED);
+                    canvas.drawBitmap(bitmap,characterX - (bitmap.getWidth() / 2),
+                            characterY - (bitmap.getHeight() /2) ,null);
 
 
                     surfaceHolder.unlockCanvasAndPost(canvas);
                 }
-
             }
         }
     }
