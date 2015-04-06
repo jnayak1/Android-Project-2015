@@ -15,10 +15,10 @@
         android:id="@+id/button"
         android:textColor="#ff11ff23"
         android:clickable="true"
-        android:layout_alignParentBottom="true"
+        android:background="#ff000000"
+        android:layout_below="@+id/textView6"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="110dp"
-        android:background="#ff000000" />
+        android:layout_marginTop="89dp" />
 
     <EditText
         android:layout_width="wrap_content"
