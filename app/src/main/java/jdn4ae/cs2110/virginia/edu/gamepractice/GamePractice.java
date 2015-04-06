@@ -19,6 +19,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     float characterX,characterY;
     float mapBitMapWidth, mapBitMapHeight;
     float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
+    MainCharacter character;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         setContentView(R.layout.game_practice);
         characterX = 0;
         characterY = 0;
+
         ViewTreeObserver viewTreeObserver = mapSurfaceView.getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -144,7 +147,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
                     surfaceHolder.unlockCanvasAndPost(canvas);
 
-
+                    character.update();
                     try{
                         Thread.sleep(40);
                     }catch(InterruptedException e){
@@ -167,7 +170,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
 
-
+        character.moveRight();
 
 
     }
@@ -183,6 +186,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
+
+        character.moveLeft();;
+
     }
 
     @Override
@@ -196,6 +202,8 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom - moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
+
+        character.jump();
     }
 
     @Override
@@ -209,6 +217,8 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom + moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
+
+        character.stop();
     }
 
     public MapSurfaceView getMapSurfaceView(){
