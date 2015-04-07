@@ -38,11 +38,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(StartScreen.EXTRA_MESSAGE);
-
-
-
 
         mapSurfaceView = new MapSurfaceView(this);
         characterBitMap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
