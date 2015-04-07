@@ -19,7 +19,6 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,15 +30,20 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     Bitmap mapBitMap;
     Rect surfaceViewBitMapDSTRect;
     Rect surfaceViewBitMapSRCRect;
-    int moveAmount = 50;
+    int moveAmount = 10;
     float characterX,characterY;
     float mapBitMapWidth, mapBitMapHeight;
     float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
-    MainCharacter character;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(StartScreen.EXTRA_MESSAGE);
+
+
+
+
         mapSurfaceView = new MapSurfaceView(this);
         characterBitMap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -50,7 +54,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         setContentView(R.layout.game_practice);
         characterX = 0;
         characterY = 0;
-
         ViewTreeObserver viewTreeObserver = mapSurfaceView.getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -62,7 +65,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                     surfaceViewBitMapDSTRect = new Rect(0,0,
                             Math.round(surfaceViewBitMapWidth),Math.round(surfaceViewBitMapHeight));
                     surfaceViewBitMapSRCRect = new Rect(0,0,500,500);
-                    characterY = surfaceViewBitMapHeight / 2;
+                    characterY = (surfaceViewBitMapHeight*3)/4; // determines height of where character is positioned
                     characterX = surfaceViewBitMapWidth /2;
                 }
             });
@@ -147,7 +150,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
                     surfaceHolder.unlockCanvasAndPost(canvas);
 
-                    character.update();
+
                     try{
                         Thread.sleep(40);
                     }catch(InterruptedException e){
@@ -170,7 +173,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
 
-        character.moveRight();
+
 
 
     }
@@ -186,9 +189,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
-
-        character.moveLeft();;
-
     }
 
     @Override
@@ -202,8 +202,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom - moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
-
-        character.jump();
     }
 
     @Override
@@ -217,8 +215,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom + moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
-
-        character.stop();
     }
 
     public MapSurfaceView getMapSurfaceView(){

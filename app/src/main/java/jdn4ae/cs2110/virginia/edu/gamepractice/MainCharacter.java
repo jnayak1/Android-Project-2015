@@ -1,5 +1,6 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
+
 public class MainCharacter {
     private int positionX = 100;
     private int positionY = 450;

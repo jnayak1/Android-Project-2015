@@ -7,14 +7,12 @@
     android:orientation="vertical"
     android:id="@+id/layout">
 
-
     <fragment
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:id="@+id/map_surface_view"
-        class="jdn4ae.cs2110.virginia.edu.gamepractice.MapFragment"
-        tools:layout="@layout/abc_activity_chooser_view_list_item" />
+        class="jdn4ae.cs2110.virginia.edu.gamepractice.MapFragment"/>
 
     <fragment
         android:layout_width="match_parent"
@@ -22,13 +20,5 @@
         android:layout_weight="1"
         android:id="@+id/controller_fragment"
         class="jdn4ae.cs2110.virginia.edu.gamepractice.ControllerFragment"/>
-
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        android:src="@drawable/character" />
-
-
 
 </LinearLayout>
