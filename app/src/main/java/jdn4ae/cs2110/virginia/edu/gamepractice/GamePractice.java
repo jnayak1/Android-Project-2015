@@ -215,6 +215,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom + moveAmount;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
+
     }
 
     public MapSurfaceView getMapSurfaceView(){
