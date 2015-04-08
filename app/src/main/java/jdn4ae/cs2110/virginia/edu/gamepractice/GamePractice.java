@@ -65,9 +65,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                 }
             });
         }
-
-
-
     }
 
     @Override
@@ -134,8 +131,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                 if(surfaceHolder.getSurface().isValid()) {
 
                     Canvas canvas = surfaceHolder.lockCanvas();
-//                    Bitmap alteredBitmap = Bitmap.createBitmap(Math.round(mapBitMapWidth),
-//                            Math.round(mapBitMapHeight),mapBitMap.getConfig());
 
                     // draw here
                     canvas.drawBitmap(mapBitMap,surfaceViewBitMapSRCRect,surfaceViewBitMapDSTRect,null);
