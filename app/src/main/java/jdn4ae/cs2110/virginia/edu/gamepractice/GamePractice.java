@@ -212,4 +212,5 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     public MapSurfaceView getMapSurfaceView(){
         return mapSurfaceView;
     }
+
 }
