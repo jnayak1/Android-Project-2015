@@ -11,8 +11,6 @@ public abstract class Creature {
     float postionX, positionY;
 
 
-    public void move(){
-        
-    }
+    public abstract void move();
 
 }
