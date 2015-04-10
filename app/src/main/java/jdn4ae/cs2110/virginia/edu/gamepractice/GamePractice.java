@@ -34,6 +34,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     float characterX,characterY;
     float mapBitMapWidth, mapBitMapHeight;
     float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
