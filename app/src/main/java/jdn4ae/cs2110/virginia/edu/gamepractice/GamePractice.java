@@ -179,7 +179,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int bottom = surfaceViewBitMapSRCRect.bottom;
 
         surfaceViewBitMapSRCRect.set(left,top,right,bottom);
-        
+
     }
 
     @Override
