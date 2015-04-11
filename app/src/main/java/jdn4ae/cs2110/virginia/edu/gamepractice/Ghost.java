@@ -1,9 +1,7 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
+
 import android.graphics.BitmapFactory;
-import android.util.FloatMath;
 
 public class Ghost extends Creature{
 
