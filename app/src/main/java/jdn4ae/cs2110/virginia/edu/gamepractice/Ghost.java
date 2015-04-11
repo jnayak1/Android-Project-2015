@@ -10,12 +10,13 @@ public class Ghost extends Creature{
     private static float distancePerMove = 20; // all ghosts move same amount per move so static
     private MainCharacter mainCharacter;
 
-    protected Ghost(Bitmap bitmap, float positionX, float positionY,
+    protected Ghost(float positionX, float positionY,
                     GamePractice gamePractice, int size) {
 
-        super(bitmap, positionX, positionY, gamePractice);
+        super(positionX, positionY, gamePractice);
         this.size = size;
         this.mainCharacter = gamePractice.getMainCharacter();
+        
     }
 
     @Override

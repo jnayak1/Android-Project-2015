@@ -11,10 +11,10 @@ public abstract class Creature {
     protected float positionX, positionY; // the center of the creature bitmap on the map bitmap
     protected GamePractice gamePractice;
 
-    protected Creature(Bitmap bitmap, float positionX, float positionY, GamePractice gamePractice) {
-        this.bitmap = bitmap;
+    protected Creature(float positionX, float positionY, GamePractice gamePractice) {
         this.positionX = positionX;
         this.positionY = positionY;
+        this.gamePractice = gamePractice;
     }
 
     public abstract void move();

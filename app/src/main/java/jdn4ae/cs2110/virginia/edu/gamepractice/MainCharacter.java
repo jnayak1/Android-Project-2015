@@ -11,8 +11,8 @@ public class MainCharacter extends Creature {
     private int speedX = 0;
     private int speedY = 1;
 
-    protected MainCharacter(Bitmap bitmap, float positionX, float positionY, GamePractice gamePractice) {
-        super(bitmap, positionX, positionY, gamePractice);
+    protected MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
+        super( positionX, positionY, gamePractice);
     }
 
     public void update() {
