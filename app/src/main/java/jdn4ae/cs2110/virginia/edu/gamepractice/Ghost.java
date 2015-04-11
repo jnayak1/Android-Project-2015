@@ -2,6 +2,7 @@ package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.FloatMath;
 
 public class Ghost extends Creature{
@@ -14,9 +15,14 @@ public class Ghost extends Creature{
                     GamePractice gamePractice, int size) {
 
         super(positionX, positionY, gamePractice);
-        this.size = size;
+        this.size = size; // max size 4, won't get any bigger after that
         this.mainCharacter = gamePractice.getMainCharacter();
-        
+
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4 / size; // max size 4, won't get any bigger after that
+        this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
+                R.drawable.ghost, options);
     }
 
     @Override
