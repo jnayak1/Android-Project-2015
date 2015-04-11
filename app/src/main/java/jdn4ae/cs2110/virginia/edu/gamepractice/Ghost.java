@@ -13,12 +13,12 @@ public class Ghost extends Creature{
                     GamePractice gamePractice, int size) {
 
         super(positionX, positionY, gamePractice);
-        this.size = size; // max size 4, won't get any bigger after that
+        this.size = size; // max size 8, won't get any bigger after that
         this.mainCharacter = gamePractice.getMainCharacter();
 
 
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 4 / size; // max size 4, won't get any bigger after that
+        options.inSampleSize = 8 / size; // max size 8, won't get any bigger after that
         this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
                 R.drawable.ghost, options);
     }
