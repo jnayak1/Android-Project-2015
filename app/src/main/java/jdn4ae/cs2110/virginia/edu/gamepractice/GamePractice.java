@@ -26,6 +26,7 @@ import android.widget.Toast;
 public class GamePractice extends Activity implements SurfaceHolder.Callback, MoveButton, OtherButton {
 
     MapSurfaceView mapSurfaceView;
+    MainCharacter mainCharacter;
     Bitmap characterBitMap;
     Bitmap mapBitMap;
     Rect surfaceViewBitMapDSTRect;
@@ -213,4 +214,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         return mapSurfaceView;
     }
 
+    public MainCharacter getMainCharacter() {
+        return this.mainCharacter;
+    }
 }

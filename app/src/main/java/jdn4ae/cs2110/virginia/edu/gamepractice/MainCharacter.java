@@ -1,13 +1,19 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 
-public class MainCharacter {
+import android.graphics.Bitmap;
+
+public class MainCharacter extends Creature {
     private int positionX = 100;
     private int positionY = 450;
     private boolean jumped = false;
-
+    private GamePractice gamePractice;
     private int speedX = 0;
     private int speedY = 1;
+
+    protected MainCharacter(Bitmap bitmap, float positionX, float positionY, GamePractice gamePractice) {
+        super(bitmap, positionX, positionY, gamePractice);
+    }
 
     public void update() {
 
@@ -69,6 +75,11 @@ public class MainCharacter {
             speedY = -10;
             jumped = true;
         }
+
+    }
+
+    @Override
+    public void move() {
 
     }
 }
