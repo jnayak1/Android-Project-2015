@@ -1,25 +1,15 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
