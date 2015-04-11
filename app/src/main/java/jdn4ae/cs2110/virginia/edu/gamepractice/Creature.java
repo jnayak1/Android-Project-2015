@@ -8,8 +8,13 @@ import android.graphics.Bitmap;
 public abstract class Creature {
 
     Bitmap bitmap;
-    float postionX, positionY;
+    float positionX, positionY;
 
+    protected Creature(Bitmap bitmap, float positionX, float positionY) {
+        this.bitmap = bitmap;
+        this.positionX = positionX;
+        this.positionY = positionY;
+    }
 
     public abstract void move();
 
