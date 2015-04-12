@@ -37,7 +37,7 @@ public class Ghost extends Creature{
         float mainCharacterX = mainCharacter.getPositionX();
         float mainCharacterY = mainCharacter.getPositionY();
 
-        // return the slope of line
+        // get the slope of line
         float m = (this.positionY - mainCharacterY) / (this.positionX - mainCharacterX);
 
         float futureX = mainCharacter.getPositionX();
