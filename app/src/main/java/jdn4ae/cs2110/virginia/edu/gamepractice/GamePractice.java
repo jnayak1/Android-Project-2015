@@ -120,11 +120,12 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         public void run() {
             while(running){
                 if(surfaceHolder.getSurface().isValid()) {
-
+                    // call update method that updates  ArrayList with all the
+                        // different objects in it
                     Canvas canvas = surfaceHolder.lockCanvas();
-
-                    // draw here
                     canvas.drawBitmap(mapBitMap,surfaceViewBitMapSRCRect,surfaceViewBitMapDSTRect,null);
+
+                    // draw each object in the ArrayList on canvas here with for each loop
                     canvas.drawBitmap(characterBitMap,characterX - (characterBitMap.getWidth() / 2),
                             characterY - (characterBitMap.getHeight() /2) ,null);
 
