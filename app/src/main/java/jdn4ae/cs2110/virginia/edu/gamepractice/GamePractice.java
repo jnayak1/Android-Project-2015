@@ -90,7 +90,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         Thread thread = null;
         SurfaceHolder surfaceHolder;
         volatile boolean running = false;
-        float surfaceViewBitMapRectX,surfaceViewBitMapRectY;
 
         public MapSurfaceView(Context context) {
             super(context);
