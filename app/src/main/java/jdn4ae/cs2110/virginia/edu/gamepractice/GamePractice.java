@@ -122,6 +122,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                 if(surfaceHolder.getSurface().isValid()) {
                     // call update method that updates  ArrayList with all the
                         // different objects in it
+                    update();
                     Canvas canvas = surfaceHolder.lockCanvas();
                     canvas.drawBitmap(mapBitMap,surfaceViewBitMapSRCRect,surfaceViewBitMapDSTRect,null);
 
@@ -140,6 +141,11 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                     }
                 }
             }
+        }
+
+        private void update() {
+            // if ghost is killed or item is picked up, delete from ArrayList
+            
         }
     }
 
