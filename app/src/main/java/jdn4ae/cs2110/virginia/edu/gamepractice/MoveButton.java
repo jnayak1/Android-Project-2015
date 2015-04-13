@@ -7,4 +7,5 @@ public interface MoveButton {
     public void upButtonClick();
     public void downButtonClick();
 
+
 }

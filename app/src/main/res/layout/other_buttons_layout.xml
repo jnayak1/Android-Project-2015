@@ -6,4 +6,25 @@
     tools:context=".GamePractice">
 
 
+    <Button
+        style="?android:attr/buttonStyle"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:hapticFeedbackEnabled="true"
+        android:text="Jump"
+        android:id="@+id/jump_button"
+        android:layout_marginTop="87dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyle"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:hapticFeedbackEnabled="true"
+        android:text="Shoot"
+        android:id="@+id/shoot_button"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

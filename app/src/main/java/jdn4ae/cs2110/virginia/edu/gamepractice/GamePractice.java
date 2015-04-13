@@ -207,6 +207,18 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     }
 
+    @Override
+    public void jumpButtonClick() {
+        //
+        mainCharacter.jump();
+
+    }
+
+    @Override
+    public void shootButtonClick() {
+        //TO DO: method called when shoot button is pushed
+    }
+
     public MapSurfaceView getMapSurfaceView(){
         return mapSurfaceView;
     }
