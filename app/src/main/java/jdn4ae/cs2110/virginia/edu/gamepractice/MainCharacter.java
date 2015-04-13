@@ -2,126 +2,108 @@ package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
+import java.util.ArrayList;
+
 
 public class MainCharacter extends Creature {
-    private int positionX = 100;
-    private int positionY = 450;
+
+    private static final int MOVESPEED = 50;
+    private float positionX = 100;
+    private float positionY = 400;
     private boolean jumped = false;
+
     private GamePractice gamePractice;
-    private int speedX = 0;
-    private int speedY = 1;
+    final int JUMPSPEED = -175;
+
+
+    protected Bitmap character;
+    protected ArrayList items;
 
     protected MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
-        super( positionX, positionY, gamePractice);
+        super(positionX, positionY, gamePractice);
+
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        character = BitmapFactory.decodeResource(gamePractice.getResources(), R.drawable.character);
+        items = new ArrayList();
     }
 
-    public void update() {
+    protected void onDraw(Canvas canvas) {
 
-        // Moves Character or Scrolls Background accordingly.
-        if (speedX < 0) {
-            positionX += speedX;
-        } else if (speedX == 0) {
-            System.out.println("Don't scroll background.");
+        if (positionX < canvas.getWidth()) {
+            positionX += 50;
+        }
+        else {
+            setPositionX(100);
+        }
+        if (positionY < canvas.getHeight()) {
+            positionY = getPositionY();
+        }
+        else {
+            setPositionY(400);
+        }
+
+        canvas.drawBitmap(character, positionX, positionY, new Paint());
+    }
+
+
+    public void move() {
+
+        if (positionX >= 4900){
+            setPositionX(10);
         } else {
-            if (positionX <= 160) {
-                positionX += speedX;
-            } else {
-                System.out.println("Scroll Background ");
-            }
+            positionX = getPositionX();
         }
 
-        // Updates Y Position
 
-        if (positionY + speedY >= 450) {
-            positionY = 450;
+        if (positionY >= 3000) {
+            setPositionY(400);
         } else {
-            positionY += speedY;
-        }
-
-        // Handles Jumping
-        if (jumped) {
-            speedY += 1;
-
-            if (positionY + speedY >= 450) {
-                positionY = 450;
-                speedY = 0;
-                jumped = false;
-            }
-
-        }
-
-        // Prevents going beyond X coordinate of 0
-        if (positionX + speedX <= 65) {
-            positionX = 66;
+            positionY = getPositionY();
         }
     }
 
 
-    public void moveRight() {
-        speedX = 4;
+    public void pickUpItem(Item item) {
+        items.add(item);
     }
 
-    public void moveLeft() {
-        speedX = -4;
+    public void useItem(Item item) {
+        items.remove(item);
     }
 
+    public void shoot() {
 
-    public void stop() {
-        speedX = 0;
     }
 
     public void jump() {
         if (!jumped) {
-            speedY = -10;
+            positionX += MOVESPEED;
+            positionY += JUMPSPEED;
             jumped = true;
         }
 
     }
 
-    @Override
-    public void move() {
-
+    public void gravity () {
+        if (jumped) {
+            positionX += MOVESPEED;
+            positionY = 100;
+            jumped = false;
+        }
     }
+
+    public float getPositionX() { return positionX; }
+
+    public void setPositionX(float positionX) { this.positionX = positionX; }
+
+    public float getPositionY() { return positionY; }
+
+    public void setPositionY(float positionY) { this.positionY = positionY; }
 }
-//
-//    public int getPositionX() {
-//        return positionX;
-//    }
-//
-//    public void setPositionX(int positionX) {
-//        this.positionX = positionX;
-//    }
-//
-//    public int getPositionY() {
-//        return positionY;
-//    }
-//
-//    public void setPositionY(int positionY) {
-//        this.positionY = positionY;
-//    }
-//
-//    public boolean isJumped() {
-//        return jumped;
-//    }
-//
-//    public void setJumped(boolean jumped) {
-//        this.jumped = jumped;
-//    }
-//
-//    public int getSpeedX() {
-//        return speedX;
-//    }
-//
-//    public void setSpeedX(int speedX) {
-//        this.speedX = speedX;
-//    }
-//
-//    public int getSpeedY() {
-//        return speedY;
-//    }
-//
-//    public void setSpeedY(int speedY) {
-//        this.speedY = speedY;
-//    }
-//}
-//
+

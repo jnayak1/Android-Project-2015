@@ -17,6 +17,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     MapSurfaceView mapSurfaceView;
     MainCharacter mainCharacter;
+    DrawingTheCharacter c;
     Bitmap characterBitMap;
     Bitmap mapBitMap;
     Rect surfaceViewBitMapDSTRect;
@@ -144,7 +145,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
         private void update() {
             // if ghost is killed or item is picked up, delete from ArrayList
-            
+
         }
     }
 
@@ -175,7 +176,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         int right = surfaceViewBitMapSRCRect.right - moveAmount;
         int bottom = surfaceViewBitMapSRCRect.bottom;
 
-        surfaceViewBitMapSRCRect.set(left,top,right,bottom);
+        surfaceViewBitMapSRCRect.set(left, top, right, bottom);
 
     }
 
@@ -213,4 +214,5 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     public MainCharacter getMainCharacter() {
         return this.mainCharacter;
     }
+
 }
