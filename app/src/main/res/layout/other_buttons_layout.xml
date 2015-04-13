@@ -13,10 +13,11 @@
         android:hapticFeedbackEnabled="true"
         android:text="Jump"
         android:id="@+id/jump_button"
-        android:layout_marginTop="87dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/shoot_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="104dp"
+        android:layout_marginEnd="104dp" />
 
     <Button
         style="?android:attr/buttonStyle"
@@ -26,5 +27,8 @@
         android:text="Shoot"
         android:id="@+id/shoot_button"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="74dp"
+        android:layout_marginStart="74dp" />
 </RelativeLayout>
