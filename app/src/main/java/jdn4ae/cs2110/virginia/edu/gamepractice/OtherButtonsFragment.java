@@ -10,8 +10,8 @@ import android.widget.Button;
 
 public class OtherButtonsFragment extends Fragment implements View.OnClickListener {
     Button shootButton;
-    Button jumpButton;
-    OtherButton otherJumpButton;
+    Button itemButton;
+    OtherButton otherItemButton;
     OtherButton otherShootButton;
 
 
@@ -26,9 +26,9 @@ public class OtherButtonsFragment extends Fragment implements View.OnClickListen
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        otherJumpButton = (OtherButton) getActivity();
-        jumpButton = (Button) getActivity().findViewById(R.id.jump_button);
-        jumpButton.setOnClickListener(this);
+        otherItemButton = (OtherButton) getActivity();
+        itemButton = (Button) getActivity().findViewById(R.id.item_button);
+        itemButton.setOnClickListener(this);
 
         otherShootButton = (OtherButton) getActivity();
         shootButton = (Button) getActivity().findViewById(R.id.shoot_button);
@@ -40,7 +40,7 @@ public class OtherButtonsFragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.right_button:
-                otherJumpButton.jumpButtonClick();
+                otherItemButton.itemButtonClick();
              break;
 
             case R.id.left_button:

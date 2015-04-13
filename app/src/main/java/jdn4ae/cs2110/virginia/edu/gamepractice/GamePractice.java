@@ -208,9 +208,8 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     }
 
     @Override
-    public void jumpButtonClick() {
-        //
-        mainCharacter.jump();
+    public void itemButtonClick() {
+        //use an item!
 
     }
 
