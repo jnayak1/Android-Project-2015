@@ -14,11 +14,12 @@ public class Ghost {
     private Bitmap ghostBitmap;
     private float positionX, positionY;
     private GamePractice gamePractice;
+    public final static int MAX_SIZE = 8;
 
     protected Ghost(float positionX, float positionY,
                     GamePractice gamePractice, int size) {
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8 / size; // max size 8, won't get any bigger after that
+        options.inSampleSize = MAX_SIZE / size; // max size 8, won't get any bigger after that
         this.ghostBitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
                 R.drawable.ghost, options);
         this.positionX = positionX - (1/2)*ghostBitmap.getWidth();
@@ -94,6 +95,7 @@ public class Ghost {
 
     public void setSize(int size) {
         this.size = size;
+
     }
 
     public float getDistancePerMove() {

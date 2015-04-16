@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 
@@ -49,12 +50,19 @@ public class MainCharacter {
         float left = gamePractice.getSurfaceViewBitMapSRCRect().left;
         float right = gamePractice.getSurfaceViewBitMapSRCRect().right;
 
-        if(((this.positionX < right) && (this.positionX > left)) &&
-                ((this.positionY < bottom) && (this.positionY > top))) {
+        if(this.getRect().intersect(gamePractice.getSurfaceViewBitMapSRCRect())){
             canvas.drawBitmap(this.characterBitmap, this.getPositionX(), this.getPositionY(), null);
         }
     }
 
+    private Rect getRect() {
+        Rect characterRect = new Rect();
+        characterRect.left = (int) (this.getPositionX() - (1/2)*characterBitmap.getWidth());
+        characterRect.right = (int) (this.getPositionX() + (1/2)*characterBitmap.getWidth());
+        characterRect.top = (int) this.getPositionY() - (1/2) * characterBitmap.getHeight();
+        characterRect.bottom = (int) this.getPositionY() + (1/2) * characterBitmap.getHeight();
+        return characterRect;
+    }
 
 
     public float getPositionX() { return positionX; }
