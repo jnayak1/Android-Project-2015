@@ -16,6 +16,7 @@ public class MainCharacter {
     private GamePractice gamePractice;
     private Bitmap characterBitmap;
     private ArrayList items;
+    private boolean directionRight;
     private float positionX, positionY;
     private static float jumpAmount = 50;
 
