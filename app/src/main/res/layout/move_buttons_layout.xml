@@ -27,15 +27,7 @@
         android:layout_alignParentEnd="true"
         android:padding="@dimen/control_button_padding"
         android:layout_centerVertical="true"/>
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/control_button_width"
-        android:layout_height="@dimen/control_button_height"
-        android:hapticFeedbackEnabled="true"
-        android:id="@+id/down_button"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:padding="@dimen/control_button_padding"/>
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="@dimen/control_button_width"

@@ -9,94 +9,53 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 
-public class MainCharacter extends Creature {
+public class MainCharacter {
 
-    private static final int MOVESPEED = 50;
-    private float positionX = 100;
-    private float positionY = 400;
-    private boolean jumped = false;
-
+    private int moveAmount;
     private GamePractice gamePractice;
-    final int JUMPSPEED = -175;
+    private Bitmap characterBitmap;
+    private ArrayList items;
+    private float positionX, positionY;
+    private static float jumpAmount = 50;
 
-
-    protected Bitmap character;
-    protected ArrayList items;
-
-    protected MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
-        super(positionX, positionY, gamePractice);
-
-
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        character = BitmapFactory.decodeResource(gamePractice.getResources(), R.drawable.character);
-        items = new ArrayList();
-    }
-
-    protected void onDraw(Canvas canvas) {
-
-        if (positionX < canvas.getWidth()) {
-            positionX += 50;
-        }
-        else {
-            setPositionX(100);
-        }
-        if (positionY < canvas.getHeight()) {
-            positionY = getPositionY();
-        }
-        else {
-            setPositionY(400);
-        }
-
-        canvas.drawBitmap(character, positionX, positionY, new Paint());
+    public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
+        characterBitmap = BitmapFactory.decodeResource(gamePractice.getResources(), R.drawable.character);
+        this.positionX = positionX - (1/2)*characterBitmap.getWidth();
+        this.positionY = positionY - (1/2)*characterBitmap.getHeight();
+        this.gamePractice = gamePractice;
+        items = new ArrayList<Item>();
+        moveAmount = gamePractice.getMoveAmount();
     }
 
 
-    public void move() {
-
-        if (positionX >= 4900){
-            setPositionX(10);
-        } else {
-            positionX = getPositionX();
-        }
 
 
-        if (positionY >= 3000) {
-            setPositionY(400);
-        } else {
-            positionY = getPositionY();
+    public void moveRight() {
+        this.setPositionX(this.getPositionX() + moveAmount);
+    }
+
+    public void moveLeft(){
+        this.setPositionX(this.getPositionX() - moveAmount);
+    }
+
+
+    public void jump(){
+
+    }
+
+    public void onDraw(Canvas canvas){
+        float top = gamePractice.getSurfaceViewBitMapSRCRect().top;
+        float bottom = gamePractice.getSurfaceViewBitMapSRCRect().bottom;
+        float left = gamePractice.getSurfaceViewBitMapSRCRect().left;
+        float right = gamePractice.getSurfaceViewBitMapSRCRect().right;
+
+        if(((this.positionX < right) && (this.positionX > left)) &&
+                ((this.positionY < bottom) && (this.positionY > top))) {
+            canvas.drawBitmap(this.characterBitmap, this.getPositionX(), this.getPositionY(), null);
         }
     }
 
 
-    public void pickUpItem(Item item) {
-        items.add(item);
-    }
-
-    public void useItem(Item item) {
-        items.remove(item);
-    }
-
-    public void shoot() {
-
-    }
-
-    public void jump() {
-        if (!jumped) {
-            positionX += MOVESPEED;
-            positionY += JUMPSPEED;
-            jumped = true;
-        }
-
-    }
-
-    public void gravity () {
-        if (jumped) {
-            positionX += MOVESPEED;
-            positionY = 100;
-            jumped = false;
-        }
-    }
 
     public float getPositionX() { return positionX; }
 
@@ -105,5 +64,14 @@ public class MainCharacter extends Creature {
     public float getPositionY() { return positionY; }
 
     public void setPositionY(float positionY) { this.positionY = positionY; }
+
+    public Bitmap getBitmap() {
+        return characterBitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.characterBitmap = characterBitmap;
+    }
+
 }
 

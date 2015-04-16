@@ -35,10 +35,6 @@ public class MoveButtonsFragment extends Fragment implements View.OnClickListene
         upButton = (Button) getActivity().findViewById(R.id.up_button);
         upButton.setOnClickListener(this);
 
-        moveDownButton = (MoveButton) getActivity();
-        downButton = (Button) getActivity().findViewById(R.id.down_button);
-        downButton.setOnClickListener(this);
-
         moveRightButton = (MoveButton) getActivity();
         rightButton = (Button) getActivity().findViewById(R.id.right_button);
         rightButton.setOnClickListener(this);
@@ -58,10 +54,6 @@ public class MoveButtonsFragment extends Fragment implements View.OnClickListene
 
             case R.id.left_button:
                 moveLeftButton.leftButtonClick();
-            break;
-
-            case R.id.down_button:
-                moveDownButton.downButtonClick();
             break;
 
             case R.id.up_button:
