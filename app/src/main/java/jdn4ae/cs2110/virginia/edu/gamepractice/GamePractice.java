@@ -64,7 +64,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 //                    Ghost ghost2 = new Ghost(800,100,GamePractice.this,1);
 //                    Ghost ghost3 = new Ghost(100,100,GamePractice.this,4);
 
-                    ghosts = new GhostArrayList(new ArrayList<Ghost>());
+                    ghosts = new GhostArrayList(new ArrayList<Ghost>(), GamePractice.this);
                     bullets = new BulletArrayList(new ArrayList<Bullet>());
 
 //                    ghosts.add(ghost0);
@@ -235,4 +235,5 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     public Rect getSurfaceViewBitMapSRCRect() {
         return surfaceViewBitMapSRCRect;
     }
+
 }

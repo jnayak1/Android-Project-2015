@@ -15,6 +15,8 @@ public class Ghost {
     private float positionX, positionY;
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
+    private static int autoGenRadius = 500;
+
 
     protected Ghost(float positionX, float positionY,
                     GamePractice gamePractice, int size) {
@@ -153,5 +155,17 @@ public class Ghost {
             value = this.getRect().intersect(ghostO.getRect());
         }
         return value;
+    }
+
+    public static void autoGenerate(GhostArrayList ghostArrayList, GamePractice gamePractice){
+        MainCharacter mainCharacter = gamePractice.getMainCharacter();
+        float mainCharacterX = mainCharacter.getPositionX();
+        float mainCharacterY = mainCharacter.getPositionY();
+        float changeDistanceX = (float)( 2*Math.random() - 1) * autoGenRadius;
+        float changeDistanceY = (float)( 2*Math.random() - 1) * autoGenRadius;
+        float ghostX = mainCharacterX + changeDistanceX;
+        float ghostY = mainCharacterY + changeDistanceY;
+        Ghost ghost = new Ghost(ghostX,ghostY,gamePractice,1);
+        ghostArrayList.add(ghost);
     }
 }
