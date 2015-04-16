@@ -25,4 +25,6 @@ public class BulletArrayList extends ArrayList<Bullet> {
             bullet.onDraw(canvas);
         }
     }
+
+
 }

@@ -20,7 +20,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     private MapSurfaceView mapSurfaceView;
     private MainCharacter mainCharacter;
-    private Bitmap characterBitMap;
     private Bitmap mapBitMap;
     private Bitmap updateBitmap;
     private Canvas updateCanvas;
@@ -38,7 +37,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
         super.onCreate(savedInstanceState);
 
         mapSurfaceView = new MapSurfaceView(this);
-        characterBitMap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         mapBitMap = BitmapFactory.decodeResource(getResources(), R.drawable.background, options);
@@ -61,22 +59,18 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                     characterY = (surfaceViewBitMapHeight*3)/4; // determines height of where character is positioned
                     characterX = surfaceViewBitMapWidth /2;
                     mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
-                    Ghost ghost0 = new Ghost(800,450,GamePractice.this,1);
-                    Ghost ghost1 = new Ghost(100,450,GamePractice.this,2);
-                    Ghost ghost2 = new Ghost(800,100,GamePractice.this,1);
-                    Ghost ghost3 = new Ghost(100,100,GamePractice.this,4);
-
-                    Bullet bullet0 = new Bullet(600,200,GamePractice.this);
+//                    Ghost ghost0 = new Ghost(800,450,GamePractice.this,1);
+//                    Ghost ghost1 = new Ghost(100,450,GamePractice.this,2);
+//                    Ghost ghost2 = new Ghost(800,100,GamePractice.this,1);
+//                    Ghost ghost3 = new Ghost(100,100,GamePractice.this,4);
 
                     ghosts = new GhostArrayList(new ArrayList<Ghost>());
                     bullets = new BulletArrayList(new ArrayList<Bullet>());
 
-                    ghosts.add(ghost0);
-                    ghosts.add(ghost1);
-                    ghosts.add(ghost2);
-                    ghosts.add(ghost3);
-
-                    bullets.add(bullet0);
+//                    ghosts.add(ghost0);
+//                    ghosts.add(ghost1);
+//                    ghosts.add(ghost2);
+//                    ghosts.add(ghost3);
 
                 }
             });
@@ -224,6 +218,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     @Override
     public void shootButtonClick() {
         //TO DO: method called when shoot button is pushed
+        mainCharacter.shoot(bullets);
     }
 
     public MapSurfaceView getMapSurfaceView(){
