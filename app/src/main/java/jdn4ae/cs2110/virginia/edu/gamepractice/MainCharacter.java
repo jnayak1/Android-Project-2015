@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import java.util.ArrayList;
+import java.lang.System;
 
 
 public class MainCharacter {
@@ -16,7 +17,8 @@ public class MainCharacter {
     private Bitmap characterBitmap;
     private ArrayList items;
     private float positionX, positionY;
-    private static float jumpAmount = 50;
+    private static float jumpAmount = 120;
+
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
         characterBitmap = BitmapFactory.decodeResource(gamePractice.getResources(), R.drawable.character);
@@ -40,7 +42,23 @@ public class MainCharacter {
 
 
     public void jump(){
+        float startY = positionY;
+        positionY -= jumpAmount;
+        fall(startY);
 
+
+    }
+
+    public void fall(float baseHeight){
+        while( positionY < baseHeight){
+            int n = 1;
+            if(System.currentTimeMillis()%1000 == 0){
+                positionY += 5;
+                System.out.println("fall call");
+
+            }
+
+        }
     }
 
     public void onDraw(Canvas canvas){
@@ -63,7 +81,8 @@ public class MainCharacter {
 
     public float getPositionY() { return positionY; }
 
-    public void setPositionY(float positionY) { this.positionY = positionY; }
+    public void setPositionY(float positionY) {
+        this.positionY = positionY; }
 
     public Bitmap getBitmap() {
         return characterBitmap;

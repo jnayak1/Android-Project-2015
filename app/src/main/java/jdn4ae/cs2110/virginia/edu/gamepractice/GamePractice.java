@@ -14,7 +14,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+import java.lang.System;
 
 public class GamePractice extends Activity implements SurfaceHolder.Callback, MoveButton, OtherButton {
 
@@ -31,11 +31,15 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     private float mapBitMapWidth, mapBitMapHeight;
     private float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
     private GhostArrayList ghosts;
+    private float startTime;
+    private float gravity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        gravity = 10;
+        startTime = System.currentTimeMillis();
         mapSurfaceView = new MapSurfaceView(this);
         characterBitMap = BitmapFactory.decodeResource(getResources(),R.drawable.character);
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -142,6 +146,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                         // different objects in it
                     update();
                     Canvas canvas = surfaceHolder.lockCanvas();
+
                     canvas.drawBitmap(updateBitmap,surfaceViewBitMapSRCRect,
                             surfaceViewBitMapDSTRect,null);
 
@@ -206,11 +211,19 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
         mainCharacter.jump();
 
+
+
     }
 
     @Override
     public void itemButtonClick() {
-        //use an item!
+        //TO DO: method called when item button is pushed
+        //should call separate methods for different varieties of items, once items are created.
+        //bomb: display explosion image, kill ghosts within range, update statistics
+        //moon gravity: alter gravity for a sett amount of time - temporary new jump method?
+        //speed boost: changes movement for set amount of time.
+
+        //ammo: update ammo count - part of shoot method; call automatically when picked up
 
     }
 
