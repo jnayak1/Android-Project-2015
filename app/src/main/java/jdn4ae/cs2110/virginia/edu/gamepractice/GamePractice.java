@@ -31,6 +31,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     private float mapBitMapWidth, mapBitMapHeight;
     private float surfaceViewBitMapWidth, surfaceViewBitMapHeight;
     private GhostArrayList ghosts;
+    private BulletArrayList bullets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +66,17 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                     Ghost ghost2 = new Ghost(800,100,GamePractice.this,1);
                     Ghost ghost3 = new Ghost(100,100,GamePractice.this,4);
 
+                    Bullet bullet0 = new Bullet(600,200,GamePractice.this);
+
                     ghosts = new GhostArrayList(new ArrayList<Ghost>());
+                    bullets = new BulletArrayList(new ArrayList<Bullet>());
 
                     ghosts.add(ghost0);
                     ghosts.add(ghost1);
                     ghosts.add(ghost2);
                     ghosts.add(ghost3);
+
+                    bullets.add(bullet0);
 
                 }
             });
@@ -164,6 +170,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
             updateCanvas.drawBitmap(mapBitMap,0,0,null);
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
+            bullets.onDraw(updateCanvas);
         }
     }
 
