@@ -61,9 +61,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
                     characterX = surfaceViewBitMapWidth /2;
                     mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
                     Ghost ghost0 = new Ghost(800,450,GamePractice.this,1);
-                    Ghost ghost1 = new Ghost(100,450,GamePractice.this,1);
+                    Ghost ghost1 = new Ghost(100,450,GamePractice.this,2);
                     Ghost ghost2 = new Ghost(800,100,GamePractice.this,1);
-                    Ghost ghost3 = new Ghost(100,100,GamePractice.this,1);
+                    Ghost ghost3 = new Ghost(100,100,GamePractice.this,4);
 
                     ghosts = new GhostArrayList(new ArrayList<Ghost>());
 

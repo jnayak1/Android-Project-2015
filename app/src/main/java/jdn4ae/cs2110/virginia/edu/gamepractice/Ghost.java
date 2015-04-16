@@ -80,13 +80,7 @@ public class Ghost {
 
 
     public void onDraw(Canvas canvas){
-        float top = gamePractice.getSurfaceViewBitMapSRCRect().top;
-        float bottom = gamePractice.getSurfaceViewBitMapSRCRect().bottom;
-        float left = gamePractice.getSurfaceViewBitMapSRCRect().left;
-        float right = gamePractice.getSurfaceViewBitMapSRCRect().right;
-
-        if(((this.positionX < right) && (this.positionX > left)) &&
-                ((this.positionY < bottom) && (this.positionY > top))) {
+        if(this.getRect().intersect(gamePractice.getSurfaceViewBitMapSRCRect())){
             canvas.drawBitmap(this.getGhostBitmap(), this.getPositionX(),
                     this.getPositionY(), null);
         }
