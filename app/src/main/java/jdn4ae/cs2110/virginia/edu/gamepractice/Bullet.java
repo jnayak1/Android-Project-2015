@@ -21,7 +21,7 @@ public class Bullet {
         this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),R.drawable.bullet,
                 options);
         this.positionX = positionX - (1/2) * this.bitmap.getWidth();
-        this.positionY = positionY - (1/2) * this.bitmap.getWidth();
+        this.positionY = positionY - (1/2) * this.bitmap.getHeight();
     }
 
 
