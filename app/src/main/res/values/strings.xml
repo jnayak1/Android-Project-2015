@@ -3,6 +3,7 @@
     <string name="splash_screen_image">Hello world!</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="Statistics">Score: </string>
     <color name="red">#FF0000</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
