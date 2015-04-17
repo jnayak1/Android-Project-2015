@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class MoveButtonsFragment extends Fragment implements View.OnClickListener {
+public class MoveButtonsFragment extends Fragment implements View.OnTouchListener {
     Button upButton;
     Button downButton;
     Button rightButton;
@@ -33,32 +34,33 @@ public class MoveButtonsFragment extends Fragment implements View.OnClickListene
         super.onActivityCreated(savedInstanceState);
         moveUpButton = (MoveButton) getActivity();
         upButton = (Button) getActivity().findViewById(R.id.up_button);
-        upButton.setOnClickListener(this);
+        upButton.setOnTouchListener(this);
 
         moveRightButton = (MoveButton) getActivity();
         rightButton = (Button) getActivity().findViewById(R.id.right_button);
-        rightButton.setOnClickListener(this);
+        rightButton.setOnTouchListener(this);
 
         moveLeftButton = (MoveButton) getActivity();
         leftButton = (Button) getActivity().findViewById(R.id.left_button);
-        leftButton.setOnClickListener(this);
+        leftButton.setOnTouchListener(this);
     }
 
     @Override
-    public void onClick(View v) {
+    public boolean onTouch(View v, MotionEvent e) {
 
         switch(v.getId()){
             case R.id.right_button:
-                moveUpButton.rightButtonClick();
+                    moveUpButton.rightButtonClick(e);
             break;
 
             case R.id.left_button:
-                moveLeftButton.leftButtonClick();
+                    moveLeftButton.leftButtonClick(e);
             break;
 
             case R.id.up_button:
-                moveUpButton.upButtonClick();
+                    moveUpButton.upButtonClick(e);
             break;
         }
+        return false;
     }
 }

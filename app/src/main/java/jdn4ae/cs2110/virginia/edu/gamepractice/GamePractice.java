@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewTreeObserver;
@@ -175,7 +176,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     }
 
     @Override
-    public void rightButtonClick() {
+    public void rightButtonClick(MotionEvent e) {
         // move surfaceViewSRCRect left
 
         int left = surfaceViewBitMapSRCRect.left + moveAmount;
@@ -191,7 +192,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     }
 
     @Override
-    public void leftButtonClick() {
+    public void leftButtonClick(MotionEvent e) {
         // move surfaceViewSRCRect right
 
         int left = surfaceViewBitMapSRCRect.left - moveAmount;
@@ -204,7 +205,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     }
 
     @Override
-    public void upButtonClick() {
+    public void upButtonClick(MotionEvent e) {
         // move surfaceViewSRCRect down
         if(!mainCharacter.getJumped()) {
             new JumpAsync().execute();
