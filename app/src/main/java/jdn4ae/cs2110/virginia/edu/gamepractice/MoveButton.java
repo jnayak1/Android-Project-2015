@@ -4,9 +4,9 @@ import android.view.MotionEvent;
 
 public interface MoveButton {
 
-    public void rightButtonClick(MotionEvent e);
-    public void leftButtonClick(MotionEvent e);
-    public void upButtonClick(MotionEvent e);
+    public void rightButtonClick();
+    public void leftButtonClick();
+    public void upButtonClick();
 
 
 }

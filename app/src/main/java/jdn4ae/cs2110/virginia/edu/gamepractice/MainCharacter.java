@@ -78,11 +78,13 @@ public class MainCharacter {
             }
 
         }
+        this.setJumped(false);
     }
 
     public void rise(float baseHeight){
         long currentTimeMillis = System.currentTimeMillis();
         long futureTimeMillis = currentTimeMillis + 30;
+        this.setJumped(true);
         while( positionY > baseHeight - jumpAmount){
             if(futureTimeMillis < System.currentTimeMillis()){
                 positionY -= 5;

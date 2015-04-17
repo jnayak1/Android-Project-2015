@@ -15,11 +15,12 @@ import android.widget.Button;
 
 public class MoveButtonsFragment extends Fragment implements View.OnTouchListener {
     Button upButton;
-    Button downButton;
+    static boolean upIsPushed;
     Button rightButton;
+    static boolean rightIsPushed;
     Button leftButton;
+    static boolean leftIsPushed;
     MoveButton moveUpButton;
-    MoveButton moveDownButton;
     MoveButton moveRightButton;
     MoveButton moveLeftButton;
 
@@ -48,19 +49,37 @@ public class MoveButtonsFragment extends Fragment implements View.OnTouchListene
     @Override
     public boolean onTouch(View v, MotionEvent e) {
 
-        switch(v.getId()){
+        switch(v.getId()) {
             case R.id.right_button:
-                    moveUpButton.rightButtonClick(e);
-            break;
+                int action = e.getAction();
+                if (action == MotionEvent.ACTION_DOWN){
+                    rightIsPushed = true;
+                }
+                if(action == MotionEvent.ACTION_UP){
+                    rightIsPushed = false;
+                }
+            return false;
 
             case R.id.left_button:
-                    moveLeftButton.leftButtonClick(e);
-            break;
+                int actionLeft = e.getAction();
+                if (actionLeft == MotionEvent.ACTION_DOWN){
+                    leftIsPushed = true;
+                }
+                if(actionLeft == MotionEvent.ACTION_UP){
+                    leftIsPushed = false;
+                }
+                return false;
 
             case R.id.up_button:
-                    moveUpButton.upButtonClick(e);
-            break;
+                int actionUp = e.getAction();
+                if(actionUp == MotionEvent.ACTION_DOWN){
+                    upIsPushed = true;
+                }
+                if(actionUp == MotionEvent.ACTION_UP){
+                    upIsPushed = false;
+                }
+            return false;
         }
-        return false;
+        return true;
     }
 }
