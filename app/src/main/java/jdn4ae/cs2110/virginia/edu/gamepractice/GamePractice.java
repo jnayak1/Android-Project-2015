@@ -14,7 +14,6 @@ import android.os.IBinder;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewTreeObserver;
-
 import java.util.ArrayList;
 import java.lang.System;
 
@@ -119,6 +118,20 @@ public class GamePractice extends Activity implements OtherButton {
         ghostHandler.onPauseGhostHandler();
         itemHandler.onPauseItemHandler();
         collisionHandler.onPauseCollisionHandler();
+        musicService.pauseMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapSurfaceView.onPauseMapSurfaceView();
+        lrButtonHandler.onPauseLRButtonHandler();
+        upButtonHandler.onPauseUpButtonHandler();
+        bulletHandler.onPauseBulletHandler();
+        ghostHandler.onPauseGhostHandler();
+        itemHandler.onPauseItemHandler();
+        collisionHandler.onPauseCollisionHandler();
+        musicService.onDestroy();
     }
 
     @Override
@@ -153,6 +166,14 @@ public class GamePractice extends Activity implements OtherButton {
 
     public Rect getSurfaceViewBitMapSRCRect() {
         return surfaceViewBitMapSRCRect;
+    }
+
+    public float getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(float gravity) {
+        this.gravity = gravity;
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {

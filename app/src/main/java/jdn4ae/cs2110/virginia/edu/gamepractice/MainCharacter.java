@@ -26,6 +26,9 @@ public class MainCharacter {
     private static float jumpAmount = 120;
     private boolean jumped;
     private int ammo;
+    private boolean rising;
+    private boolean falling;
+    private float intialJumpSpeed = 5;
 
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
@@ -48,7 +51,8 @@ public class MainCharacter {
         directionRight = true;
         jumped = false;
         this.ammo = 10;
-
+        this.rising = false;
+        this.falling = false;
     }
 
     public void moveRight() {
@@ -71,31 +75,57 @@ public class MainCharacter {
     }
 
     public void fall(float baseHeight){
-        long currentTimeMillis = System.currentTimeMillis();
-        long futureTimeMillis = currentTimeMillis + 30;
+        this.falling = true;
+        long startTimeMillis = System.currentTimeMillis();
+        long currentTimeMillis = startTimeMillis;
+        long futureTimeMillis = currentTimeMillis + 35;
         while( positionY < baseHeight){
             if(futureTimeMillis < System.currentTimeMillis()){
-                positionY += 5;
+                positionY += getSpeedGravity(startTimeMillis);
                 currentTimeMillis = System.currentTimeMillis();
-                futureTimeMillis = currentTimeMillis + 30;
+                futureTimeMillis = currentTimeMillis + 35;
             }
 
         }
         this.setJumped(false);
+        this.falling = false;
+        this.setPositionY(baseHeight);
     }
 
     public void rise(float baseHeight){
-        long currentTimeMillis = System.currentTimeMillis();
-        long futureTimeMillis = currentTimeMillis + 30;
+        this.rising = true;
+        long startTimeMillis = System.currentTimeMillis();
+        long currentTimeMillis = startTimeMillis;
+        long futureTimeMillis = currentTimeMillis + 35;
         this.setJumped(true);
         while( positionY > baseHeight - jumpAmount){
             if(futureTimeMillis < System.currentTimeMillis()){
-                positionY -= 5;
+                positionY -= getSpeedGravity(startTimeMillis);
                 currentTimeMillis = System.currentTimeMillis();
-                futureTimeMillis = currentTimeMillis + 30;
+                futureTimeMillis = currentTimeMillis + 35;
             }
 
         }
+        this.rising = false;
+
+    }
+
+    private float getSpeedGravity(long startTimeMillis) {
+        long currentTimeMillis = System.currentTimeMillis();
+        long timeDiff = currentTimeMillis - startTimeMillis;
+        long scallingFactor = 50; // very touchy. probably not a good idea to mess with this
+        long scalledTime = timeDiff / scallingFactor;
+        float gravity = gamePractice.getGravity();
+        float speed;
+        if(rising){
+            speed = Math.abs(intialJumpSpeed - gravity * (scalledTime));
+            System.out.println(speed);
+        }
+        else{
+            speed = 0 + gravity*(scalledTime);
+
+        }
+        return speed;
     }
 
     public void onDraw(Canvas canvas){
