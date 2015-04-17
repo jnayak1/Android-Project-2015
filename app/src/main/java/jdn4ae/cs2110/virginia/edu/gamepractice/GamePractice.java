@@ -14,7 +14,7 @@ import android.view.ViewTreeObserver;
 import java.util.ArrayList;
 import java.lang.System;
 
-public class GamePractice extends Activity implements SurfaceHolder.Callback, MoveButton, OtherButton {
+public class GamePractice extends Activity implements SurfaceHolder.Callback, OtherButton {
 
     private MapSurfaceView mapSurfaceView;
     private MainCharacter mainCharacter;
@@ -167,43 +167,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
         }
-    }
-
-    @Override
-    public void rightButtonClick() {
-        // move surfaceViewSRCRect left
-
-//        int left = surfaceViewBitMapSRCRect.left + moveAmount;
-//        int top = surfaceViewBitMapSRCRect.top;
-//        int right = surfaceViewBitMapSRCRect.right + moveAmount;
-//        int bottom = surfaceViewBitMapSRCRect.bottom;
-//
-//        surfaceViewBitMapSRCRect.set(left, top, right, bottom);
-//        mainCharacter.moveRight();
-
-
-
-    }
-
-    @Override
-    public void leftButtonClick() {
-        // move surfaceViewSRCRect right
-
-//        int left = surfaceViewBitMapSRCRect.left - moveAmount;
-//        int top = surfaceViewBitMapSRCRect.top;
-//        int right = surfaceViewBitMapSRCRect.right - moveAmount;
-//        int bottom = surfaceViewBitMapSRCRect.bottom;
-//
-//        surfaceViewBitMapSRCRect.set(left, top, right, bottom);
-//        mainCharacter.moveLeft();
-    }
-
-    @Override
-    public void upButtonClick() {
-        // move surfaceViewSRCRect down
-//        if(!mainCharacter.getJumped()) {
-//           mainCharacter.setJumped(true);
-//        }
     }
 
     @Override

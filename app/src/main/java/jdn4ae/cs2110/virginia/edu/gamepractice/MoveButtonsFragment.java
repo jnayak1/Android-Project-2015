@@ -20,9 +20,6 @@ public class MoveButtonsFragment extends Fragment implements View.OnTouchListene
     static boolean rightIsPushed;
     Button leftButton;
     static boolean leftIsPushed;
-    MoveButton moveUpButton;
-    MoveButton moveRightButton;
-    MoveButton moveLeftButton;
 
     @Nullable
     @Override
@@ -33,15 +30,12 @@ public class MoveButtonsFragment extends Fragment implements View.OnTouchListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        moveUpButton = (MoveButton) getActivity();
         upButton = (Button) getActivity().findViewById(R.id.up_button);
         upButton.setOnTouchListener(this);
 
-        moveRightButton = (MoveButton) getActivity();
         rightButton = (Button) getActivity().findViewById(R.id.right_button);
         rightButton.setOnTouchListener(this);
 
-        moveLeftButton = (MoveButton) getActivity();
         leftButton = (Button) getActivity().findViewById(R.id.left_button);
         leftButton.setOnTouchListener(this);
     }
