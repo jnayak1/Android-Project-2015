@@ -13,7 +13,7 @@ public class Bullet {
     private Bitmap bitmapRight;
     private Bitmap bitmapLeft;
     private GamePractice gamePractice;
-    private static float bulletMoveAmount = 20;
+    private static float bulletMoveAmount = 100;
     private static int size = 4;
     private boolean directionRight;
 

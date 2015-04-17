@@ -23,6 +23,7 @@ public class MainCharacter {
     private boolean directionRight;
     private float positionX, positionY;
     private static float jumpAmount = 120;
+    private boolean jumped;
 
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
@@ -43,6 +44,7 @@ public class MainCharacter {
         items = new ArrayList<Item>();
         moveAmount = gamePractice.getMoveAmount();
         directionRight = true;
+        jumped = false;
 
     }
 
@@ -61,10 +63,8 @@ public class MainCharacter {
 
     public void jump(){
         float startY = positionY;
-        positionY -= jumpAmount;
+        rise(startY);
         fall(startY);
-
-
     }
 
     public void fall(float baseHeight){
@@ -73,6 +73,19 @@ public class MainCharacter {
         while( positionY < baseHeight){
             if(futureTimeMillis < System.currentTimeMillis()){
                 positionY += 5;
+                currentTimeMillis = System.currentTimeMillis();
+                futureTimeMillis = currentTimeMillis + 30;
+            }
+
+        }
+    }
+
+    public void rise(float baseHeight){
+        long currentTimeMillis = System.currentTimeMillis();
+        long futureTimeMillis = currentTimeMillis + 30;
+        while( positionY > baseHeight - jumpAmount){
+            if(futureTimeMillis < System.currentTimeMillis()){
+                positionY -= 5;
                 currentTimeMillis = System.currentTimeMillis();
                 futureTimeMillis = currentTimeMillis + 30;
             }
@@ -138,6 +151,14 @@ public class MainCharacter {
 
     public boolean isDirectionRight() {
         return directionRight;
+    }
+
+    public boolean getJumped(){
+        return this.jumped;
+    }
+
+    public void setJumped(boolean jumped) {
+        this.jumped = jumped;
     }
 }
 

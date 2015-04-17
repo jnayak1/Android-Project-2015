@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -205,11 +206,9 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
     @Override
     public void upButtonClick() {
         // move surfaceViewSRCRect down
-
-        mainCharacter.jump();
-
-
-
+        if(!mainCharacter.getJumped()) {
+            new JumpAsync().execute();
+        }
     }
 
     @Override
@@ -243,6 +242,22 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     public Rect getSurfaceViewBitMapSRCRect() {
         return surfaceViewBitMapSRCRect;
+    }
+
+
+
+    public class JumpAsync extends AsyncTask<Void,Void,Void>{
+        // can only do one async task at at a time in the whole activity.
+        // It's a stack so they pile up if you press jump a bunch the character will jump
+        // up and down repeatedly
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            mainCharacter.setJumped(true);
+            mainCharacter.jump();
+            mainCharacter.setJumped(false);
+            return null;
+        }
     }
 
 }
