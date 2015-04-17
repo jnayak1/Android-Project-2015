@@ -15,7 +15,7 @@ public class Ghost {
     private float positionX, positionY;
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
-    private static int autoGenRadius = 500;
+    private static int autoGenRadius = 200;
 
 
     protected Ghost(float positionX, float positionY,
