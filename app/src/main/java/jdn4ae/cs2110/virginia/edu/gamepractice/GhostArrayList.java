@@ -18,7 +18,7 @@ import java.util.TreeSet;
  */
 public class GhostArrayList extends ArrayList<Ghost> {
     private GamePractice gamePractice;
-    private static int autoGenCounter = 20;
+    private static int autoGenCounter = 0;
 
     public GhostArrayList(Collection<? extends Ghost> collection, GamePractice gamePractice) {
         super(collection);
@@ -26,7 +26,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
     }
 
     public void update(){
-        if(autoGenCounter == 10){
+        if(autoGenCounter == 100){
             Ghost.autoGenerate(this,gamePractice);
             this.setAutoGenCounter(-1);
         }

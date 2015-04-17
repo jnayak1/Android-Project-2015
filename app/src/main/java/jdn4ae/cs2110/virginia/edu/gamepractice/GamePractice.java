@@ -175,7 +175,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     @Override
     public void rightButtonClick() {
-        Toast.makeText(GamePractice.this, "rightButtonClicked", Toast.LENGTH_SHORT).show();
         // move surfaceViewSRCRect left
 
         int left = surfaceViewBitMapSRCRect.left + moveAmount;
@@ -192,7 +191,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
     @Override
     public void leftButtonClick() {
-        Toast.makeText(GamePractice.this, "leftButtonClicked", Toast.LENGTH_SHORT).show();
         // move surfaceViewSRCRect right
 
         int left = surfaceViewBitMapSRCRect.left - moveAmount;
@@ -202,12 +200,10 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Mo
 
         surfaceViewBitMapSRCRect.set(left, top, right, bottom);
         mainCharacter.moveLeft();
-        System.out.println(mainCharacter.getPositionX());
     }
 
     @Override
     public void upButtonClick() {
-        Toast.makeText(GamePractice.this, "upButtonClicked", Toast.LENGTH_SHORT).show();
         // move surfaceViewSRCRect down
 
         mainCharacter.jump();

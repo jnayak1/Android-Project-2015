@@ -162,7 +162,7 @@ public class Ghost {
         float mainCharacterX = mainCharacter.getPositionX();
         float mainCharacterY = mainCharacter.getPositionY();
         float changeDistanceX = (float)( 2*Math.random() - 1) * autoGenRadius;
-        float changeDistanceY = (float)( 2*Math.random() - 1) * autoGenRadius;
+        float changeDistanceY = (float)( Math.random()) * autoGenRadius;
         float ghostX = mainCharacterX + changeDistanceX;
         float ghostY = mainCharacterY + changeDistanceY;
         Ghost ghost = new Ghost(ghostX,ghostY,gamePractice,1);

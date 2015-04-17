@@ -68,12 +68,13 @@ public class MainCharacter {
     }
 
     public void fall(float baseHeight){
+        long currentTimeMillis = System.currentTimeMillis();
+        long futureTimeMillis = currentTimeMillis + 30;
         while( positionY < baseHeight){
-            int n = 1;
-            if(System.currentTimeMillis()%1000 == 0){
+            if(futureTimeMillis < System.currentTimeMillis()){
                 positionY += 5;
-                System.out.println("fall call");
-
+                currentTimeMillis = System.currentTimeMillis();
+                futureTimeMillis = currentTimeMillis + 30;
             }
 
         }
