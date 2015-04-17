@@ -1,12 +1,16 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewTreeObserver;
@@ -40,6 +44,11 @@ public class GamePractice extends Activity implements OtherButton {
     private volatile boolean shootButtonPressed;
     private static long autoGenGhostTimeMillis = 5000;
     private static final long START_UP_TIME = 2000;
+
+    private boolean musicIsBound = false;
+    private MusicService musicService;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +91,10 @@ public class GamePractice extends Activity implements OtherButton {
         ghostHandler = new GhostHandler();
         itemHandler = new ItemHandler();
         collisionHandler = new CollisionHandler();
+
+        Intent music = new Intent();
+        music.setClass(this,MusicService.class);
+        startService(music);
     }
 
     @Override
@@ -140,6 +153,31 @@ public class GamePractice extends Activity implements OtherButton {
 
     public Rect getSurfaceViewBitMapSRCRect() {
         return surfaceViewBitMapSRCRect;
+    }
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            musicService = ((MusicService.ServiceBinder) service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicService = null;
+        }
+    };
+
+    public void bindService(){
+        this.bindService(new Intent(this,MusicService.class), serviceConnection,
+                Context.BIND_AUTO_CREATE);
+        musicIsBound = true;
+    }
+
+    public void unBindService(){
+        if(musicIsBound){
+            unbindService(serviceConnection);
+            musicIsBound = false;
+        }
     }
 
     public class MapSurfaceView extends SurfaceView implements Runnable {
