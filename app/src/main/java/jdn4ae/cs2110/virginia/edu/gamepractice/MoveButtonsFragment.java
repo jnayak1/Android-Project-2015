@@ -45,14 +45,14 @@ public class MoveButtonsFragment extends Fragment implements View.OnTouchListene
 
         switch(v.getId()) {
             case R.id.right_button:
-                int action = e.getAction();
-                if (action == MotionEvent.ACTION_DOWN){
+                int actionRight = e.getAction();
+                if (actionRight == MotionEvent.ACTION_DOWN){
                     rightIsPushed = true;
                 }
-                if(action == MotionEvent.ACTION_UP){
+                if(actionRight == MotionEvent.ACTION_UP){
                     rightIsPushed = false;
                 }
-            return false;
+            return true;
 
             case R.id.left_button:
                 int actionLeft = e.getAction();
@@ -62,7 +62,7 @@ public class MoveButtonsFragment extends Fragment implements View.OnTouchListene
                 if(actionLeft == MotionEvent.ACTION_UP){
                     leftIsPushed = false;
                 }
-                return false;
+                return true;
 
             case R.id.up_button:
                 int actionUp = e.getAction();
@@ -72,7 +72,7 @@ public class MoveButtonsFragment extends Fragment implements View.OnTouchListene
                 if(actionUp == MotionEvent.ACTION_UP){
                     upIsPushed = false;
                 }
-            return false;
+            return true;
         }
         return true;
     }

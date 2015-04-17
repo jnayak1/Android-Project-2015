@@ -35,6 +35,7 @@ public class GamePractice extends Activity implements OtherButton {
     private UpButtonHandler upButtonHandler;
     private BulletHandler bulletHandler;
     private GhostHandler ghostHandler;
+    private ItemHandler itemHandler;
     private volatile boolean shootButtonPressed;
     private static long autoGenGhostTimeMillis = 5000;
     private static final long START_UP_TIME = 2000;
@@ -78,6 +79,7 @@ public class GamePractice extends Activity implements OtherButton {
         upButtonHandler = new UpButtonHandler();
         bulletHandler = new BulletHandler();
         ghostHandler = new GhostHandler();
+        itemHandler = new ItemHandler();
     }
 
     @Override
@@ -88,6 +90,7 @@ public class GamePractice extends Activity implements OtherButton {
         upButtonHandler.onUpButtonHandlerResume();
         bulletHandler.onBulletHandlerResume();
         ghostHandler.onGhostHandlerResume();
+        itemHandler.onItemHandlerResume();
     }
 
     @Override
@@ -97,7 +100,8 @@ public class GamePractice extends Activity implements OtherButton {
         lrButtonHandler.onLRButtonHandlerPause();
         upButtonHandler.onUpButtonHandlerPause();
         bulletHandler.onBulletHandlerPause();
-        ghostHandler.getOnGhostHandlerPause();
+        ghostHandler.onGhostHandlerPause();
+        itemHandler.onItemHandlerPause();
     }
 
     @Override
@@ -371,7 +375,7 @@ public class GamePractice extends Activity implements OtherButton {
             thread = new Thread(this);
             thread.start();
         }
-        public void getOnGhostHandlerPause() {
+        public void onGhostHandlerPause() {
             boolean retry = true;
             running = false;
             while (retry) {
@@ -395,6 +399,50 @@ public class GamePractice extends Activity implements OtherButton {
                 Ghost.autoGenerate(ghosts, GamePractice.this);
                 try {
                     Thread.sleep(autoGenGhostTimeMillis);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public class ItemHandler implements Runnable{
+        Thread thread;
+        volatile boolean running;
+
+        public ItemHandler() {
+            this.thread = null;
+            this.running = false;
+        }
+        public void onItemHandlerResume() {
+            running = true;
+            thread = new Thread(this);
+            thread.start();
+        }
+        public void onItemHandlerPause() {
+            boolean retry = true;
+            running = false;
+            while (retry) {
+                try {
+                    thread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            while (running) {
+
+                try {
+                    Thread.sleep(5);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
