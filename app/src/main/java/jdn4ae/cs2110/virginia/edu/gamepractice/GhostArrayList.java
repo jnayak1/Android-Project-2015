@@ -18,7 +18,6 @@ import java.util.TreeSet;
  */
 public class GhostArrayList extends ArrayList<Ghost> {
     private GamePractice gamePractice;
-    private static int autoGenCounter = 0;
 
     public GhostArrayList(Collection<? extends Ghost> collection, GamePractice gamePractice) {
         super(collection);
@@ -26,24 +25,15 @@ public class GhostArrayList extends ArrayList<Ghost> {
     }
 
     public void update(){
-        if(autoGenCounter == 100){
-            Ghost.autoGenerate(this,gamePractice);
-            this.setAutoGenCounter(-1);
-        }
         for(Ghost ghost : this){
             ghost.move();
         }
-        this.setAutoGenCounter(++autoGenCounter);
     }
 
     public void onDraw(Canvas canvas) {
-        this.update();
+        update();
         for(Ghost ghost : this){
             ghost.onDraw(canvas);
         }
-    }
-
-    public void setAutoGenCounter(int autoGenCounter) {
-        GhostArrayList.autoGenCounter = autoGenCounter;
     }
 }

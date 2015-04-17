@@ -167,5 +167,6 @@ public class Ghost {
         float ghostY = mainCharacterY + changeDistanceY;
         Ghost ghost = new Ghost(ghostX,ghostY,gamePractice,1);
         ghostArrayList.add(ghost);
+        System.out.println("ghost generated");
     }
 }

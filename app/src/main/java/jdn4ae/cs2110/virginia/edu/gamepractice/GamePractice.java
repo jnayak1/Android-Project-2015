@@ -14,7 +14,7 @@ import android.view.ViewTreeObserver;
 import java.util.ArrayList;
 import java.lang.System;
 
-public class GamePractice extends Activity implements SurfaceHolder.Callback, OtherButton {
+public class GamePractice extends Activity implements OtherButton {
 
     private MapSurfaceView mapSurfaceView;
     private MainCharacter mainCharacter;
@@ -33,12 +33,18 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
     private float gravity;
     private LRButtonHandler lrButtonHandler;
     private UpButtonHandler upButtonHandler;
+    private BulletHandler bulletHandler;
+    private GhostHandler ghostHandler;
+    private volatile boolean shootButtonPressed;
+    private static long autoGenGhostTimeMillis = 5000;
+    private static final long START_UP_TIME = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         gravity = 10;
+        shootButtonPressed = false;
         startTime = System.currentTimeMillis();
         mapSurfaceView = new MapSurfaceView(this);
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -70,6 +76,8 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
         }
         lrButtonHandler = new LRButtonHandler();
         upButtonHandler = new UpButtonHandler();
+        bulletHandler = new BulletHandler();
+        ghostHandler = new GhostHandler();
     }
 
     @Override
@@ -78,8 +86,8 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
         mapSurfaceView.onResumeMapSurfaceView();
         lrButtonHandler.onLRButtonHandlerResume();
         upButtonHandler.onUpButtonHandlerResume();
-
-
+        bulletHandler.onBulletHandlerResume();
+        ghostHandler.onGhostHandlerResume();
     }
 
     @Override
@@ -88,21 +96,42 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
         mapSurfaceView.onPauseMapSurfaceView();
         lrButtonHandler.onLRButtonHandlerPause();
         upButtonHandler.onUpButtonHandlerPause();
+        bulletHandler.onBulletHandlerPause();
+        ghostHandler.getOnGhostHandlerPause();
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    public void itemButtonClick() {
+        //TO DO: method called when item button is pushed
+        //should call separate methods for different varieties of items, once items are created.
+        //bomb: display explosion image, kill ghosts within range, update statistics
+        //moon gravity: alter gravity for a sett amount of time - temporary new jump method?
+        //speed boost: changes movement for set amount of time.
+
+        //ammo: update ammo count - part of shoot method; call automatically when picked up
 
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+    public void shootButtonClick() {
+        //TO DO: method called when shoot button is pushed
+        shootButtonPressed = true;
     }
 
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
+    public MapSurfaceView getMapSurfaceView(){
+        return mapSurfaceView;
+    }
 
+    public MainCharacter getMainCharacter() {
+        return this.mainCharacter;
+    }
+
+    public int getMoveAmount(){
+        return this.moveAmount;
+    }
+
+    public Rect getSurfaceViewBitMapSRCRect() {
+        return surfaceViewBitMapSRCRect;
     }
 
     public class MapSurfaceView extends SurfaceView implements Runnable {
@@ -139,7 +168,7 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
             while(running){
                 if(surfaceHolder.getSurface().isValid()) {
                     // call update method that updates  ArrayList with all the
-                        // different objects in it
+                    // different objects in it
                     update();
                     Canvas canvas = surfaceHolder.lockCanvas();
 
@@ -167,39 +196,6 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
         }
-    }
-
-    @Override
-    public void itemButtonClick() {
-        //TO DO: method called when item button is pushed
-        //should call separate methods for different varieties of items, once items are created.
-        //bomb: display explosion image, kill ghosts within range, update statistics
-        //moon gravity: alter gravity for a sett amount of time - temporary new jump method?
-        //speed boost: changes movement for set amount of time.
-
-        //ammo: update ammo count - part of shoot method; call automatically when picked up
-
-    }
-
-    @Override
-    public void shootButtonClick() {
-        //TO DO: method called when shoot button is pushed
-        mainCharacter.shoot(bullets);
-    }
-
-    public MapSurfaceView getMapSurfaceView(){
-        return mapSurfaceView;
-    }
-
-    public MainCharacter getMainCharacter() {
-        return this.mainCharacter;
-    }
-    public int getMoveAmount(){
-        return this.moveAmount;
-    }
-
-    public Rect getSurfaceViewBitMapSRCRect() {
-        return surfaceViewBitMapSRCRect;
     }
 
     public class LRButtonHandler implements Runnable {
@@ -232,6 +228,11 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
 
         @Override
         public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             while (running) {
                 if (MoveButtonsFragment.rightIsPushed) {
                     int left = surfaceViewBitMapSRCRect.left + moveAmount;
@@ -290,12 +291,110 @@ public class GamePractice extends Activity implements SurfaceHolder.Callback, Ot
 
         @Override
         public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             while (running) {
                 if(MoveButtonsFragment.upIsPushed){
                     mainCharacter.jump();
                 }
                 try {
                     Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public class BulletHandler implements Runnable{
+        Thread thread;
+        volatile boolean running;
+
+        public BulletHandler() {
+            this.thread = null;
+            this.running = false;
+        }
+
+        public void onBulletHandlerResume(){
+            running = true;
+            thread = new Thread(this);
+            thread.start();
+        }
+
+        public void onBulletHandlerPause(){
+            boolean retry = true;
+            running = false;
+            while (retry) {
+                try {
+                    thread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while (running) {
+                if(shootButtonPressed) {
+                    mainCharacter.shoot(bullets);
+                    shootButtonPressed = false;
+                }
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public class GhostHandler implements Runnable{
+        Thread thread;
+        volatile boolean running;
+
+        public GhostHandler() {
+            this.thread = null;
+            this.running = false;
+        }
+        public void onGhostHandlerResume() {
+            running = true;
+            thread = new Thread(this);
+            thread.start();
+        }
+        public void getOnGhostHandlerPause() {
+            boolean retry = true;
+            running = false;
+            while (retry) {
+                try {
+                    thread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            while (running) {
+                Ghost.autoGenerate(ghosts, GamePractice.this);
+                try {
+                    Thread.sleep(autoGenGhostTimeMillis);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

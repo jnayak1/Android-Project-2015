@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.lang.System;
@@ -24,6 +25,7 @@ public class MainCharacter {
     private float positionX, positionY;
     private static float jumpAmount = 120;
     private boolean jumped;
+    private int ammo;
 
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
@@ -45,6 +47,7 @@ public class MainCharacter {
         moveAmount = gamePractice.getMoveAmount();
         directionRight = true;
         jumped = false;
+        this.ammo = 10;
 
     }
 
@@ -116,20 +119,23 @@ public class MainCharacter {
     }
 
     public void shoot(BulletArrayList bulletArrayList){
-        Rect characterRect = new Rect(this.getRect());
-        float rightX = characterRect.right;
-        float centerY = characterRect.exactCenterY();
-        Bullet bullet = new Bullet(rightX,centerY,this.gamePractice);
-        Bitmap bulletBitmap = bullet.getBitmap();
-        float bulletBitmapWidth = bulletBitmap.getWidth();
-        if(directionRight){
-            bullet.setPositionX(bullet.getPositionX() + (7/4) * bulletBitmapWidth);
+        if(!(this.getAmmo() == 0)) {
+            Rect characterRect = new Rect(this.getRect());
+            float rightX = characterRect.right;
+            float centerY = characterRect.exactCenterY();
+            Bullet bullet = new Bullet(rightX, centerY, this.gamePractice);
+            Bitmap bulletBitmap = bullet.getBitmap();
+            float bulletBitmapWidth = bulletBitmap.getWidth();
+            if (directionRight) {
+                bullet.setPositionX(bullet.getPositionX() +  bulletBitmapWidth);
+            } else {
+                bullet.setPositionX(bullet.getPositionX() - bulletBitmapWidth);
+            }
+            bulletArrayList.add(bullet);
+            this.ammo -= 1;
         }
-        else{
-            bullet.setPositionX(bullet.getPositionX() - (3/4) * bulletBitmapWidth);
-        }
-        bulletArrayList.add(bullet);
     }
+
     public float getPositionX() { return positionX; }
 
     public void setPositionX(float positionX) { this.positionX = positionX; }
@@ -161,6 +167,10 @@ public class MainCharacter {
 
     public void setJumped(boolean jumped) {
         this.jumped = jumped;
+    }
+
+    public int getAmmo() {
+        return ammo;
     }
 }
 
