@@ -35,6 +35,7 @@ public class GamePractice extends Activity implements OtherButton {
     private UpButtonHandler upButtonHandler;
     private BulletHandler bulletHandler;
     private GhostHandler ghostHandler;
+    private CollisionHandler collisionHandler;
     private ItemHandler itemHandler;
     private volatile boolean shootButtonPressed;
     private static long autoGenGhostTimeMillis = 5000;
@@ -80,6 +81,7 @@ public class GamePractice extends Activity implements OtherButton {
         bulletHandler = new BulletHandler();
         ghostHandler = new GhostHandler();
         itemHandler = new ItemHandler();
+        collisionHandler = new CollisionHandler();
     }
 
     @Override
@@ -91,6 +93,7 @@ public class GamePractice extends Activity implements OtherButton {
         bulletHandler.onBulletHandlerResume();
         ghostHandler.onGhostHandlerResume();
         itemHandler.onItemHandlerResume();
+        collisionHandler.onCollisionHandlerResume();
     }
 
     @Override
@@ -102,6 +105,7 @@ public class GamePractice extends Activity implements OtherButton {
         bulletHandler.onBulletHandlerPause();
         ghostHandler.onGhostHandlerPause();
         itemHandler.onItemHandlerPause();
+        collisionHandler.onCollisionHandlerPause();
     }
 
     @Override
@@ -420,6 +424,50 @@ public class GamePractice extends Activity implements OtherButton {
             thread.start();
         }
         public void onItemHandlerPause() {
+            boolean retry = true;
+            running = false;
+            while (retry) {
+                try {
+                    thread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            while (running) {
+
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public class CollisionHandler implements Runnable{
+        Thread thread;
+        volatile boolean running;
+
+        public CollisionHandler() {
+            this.thread = null;
+            this.running = false;
+        }
+        public void onCollisionHandlerResume() {
+            running = true;
+            thread = new Thread(this);
+            thread.start();
+        }
+        public void onCollisionHandlerPause() {
             boolean retry = true;
             running = false;
             while (retry) {
