@@ -64,12 +64,15 @@ public class MainCharacter {
         positionY -= jumpAmount;
         fall(startY);
 
+
     }
 
     public void fall(float baseHeight){
         while( positionY < baseHeight){
+            int n = 1;
             if(System.currentTimeMillis()%1000 == 0){
-                positionY += 10;
+                positionY += 5;
+                System.out.println("fall call");
 
             }
 
