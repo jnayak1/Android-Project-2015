@@ -101,24 +101,24 @@ public class GamePractice extends Activity implements OtherButton {
     protected void onResume() {
         super.onResume();
         mapSurfaceView.onResumeMapSurfaceView();
-        lrButtonHandler.onLRButtonHandlerResume();
-        upButtonHandler.onUpButtonHandlerResume();
-        bulletHandler.onBulletHandlerResume();
-        ghostHandler.onGhostHandlerResume();
-        itemHandler.onItemHandlerResume();
-        collisionHandler.onCollisionHandlerResume();
+        lrButtonHandler.onResumeLRButtonHandler();
+        upButtonHandler.onResumeUpButtonHandler();
+        bulletHandler.onResumeBulletHandler();
+        ghostHandler.onResumeGhostHandler();
+        itemHandler.onResumeItemHandler();
+        collisionHandler.onResumeCollisionHandler();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mapSurfaceView.onPauseMapSurfaceView();
-        lrButtonHandler.onLRButtonHandlerPause();
-        upButtonHandler.onUpButtonHandlerPause();
-        bulletHandler.onBulletHandlerPause();
-        ghostHandler.onGhostHandlerPause();
-        itemHandler.onItemHandlerPause();
-        collisionHandler.onCollisionHandlerPause();
+        lrButtonHandler.onPauseLRButtonHandler();
+        upButtonHandler.onPauseUpButtonHandler();
+        bulletHandler.onPauseBulletHandler();
+        ghostHandler.onPauseGhostHandler();
+        itemHandler.onPauseItemHandler();
+        collisionHandler.onPauseCollisionHandler();
     }
 
     @Override
@@ -253,13 +253,13 @@ public class GamePractice extends Activity implements OtherButton {
             this.running = false;
         }
 
-        public void onLRButtonHandlerResume() {
+        public void onResumeLRButtonHandler() {
             running = true;
             thread = new Thread(this);
             thread.start();
         }
 
-        public void onLRButtonHandlerPause() {
+        public void onPauseLRButtonHandler() {
             boolean retry = true;
             running = false;
             while (retry) {
@@ -316,13 +316,13 @@ public class GamePractice extends Activity implements OtherButton {
             this.running = false;
         }
 
-        public void onUpButtonHandlerResume() {
+        public void onResumeUpButtonHandler() {
             running = true;
             thread = new Thread(this);
             thread.start();
         }
 
-        public void onUpButtonHandlerPause() {
+        public void onPauseUpButtonHandler() {
             boolean retry = true;
             running = false;
             while (retry) {
@@ -364,13 +364,13 @@ public class GamePractice extends Activity implements OtherButton {
             this.running = false;
         }
 
-        public void onBulletHandlerResume(){
+        public void onResumeBulletHandler(){
             running = true;
             thread = new Thread(this);
             thread.start();
         }
 
-        public void onBulletHandlerPause(){
+        public void onPauseBulletHandler(){
             boolean retry = true;
             running = false;
             while (retry) {
@@ -412,12 +412,12 @@ public class GamePractice extends Activity implements OtherButton {
             this.thread = null;
             this.running = false;
         }
-        public void onGhostHandlerResume() {
+        public void onResumeGhostHandler() {
             running = true;
             thread = new Thread(this);
             thread.start();
         }
-        public void onGhostHandlerPause() {
+        public void onPauseGhostHandler() {
             boolean retry = true;
             running = false;
             while (retry) {
@@ -456,12 +456,12 @@ public class GamePractice extends Activity implements OtherButton {
             this.thread = null;
             this.running = false;
         }
-        public void onItemHandlerResume() {
+        public void onResumeItemHandler() {
             running = true;
             thread = new Thread(this);
             thread.start();
         }
-        public void onItemHandlerPause() {
+        public void onPauseItemHandler() {
             boolean retry = true;
             running = false;
             while (retry) {
@@ -500,12 +500,12 @@ public class GamePractice extends Activity implements OtherButton {
             this.thread = null;
             this.running = false;
         }
-        public void onCollisionHandlerResume() {
+        public void onResumeCollisionHandler() {
             running = true;
             thread = new Thread(this);
             thread.start();
         }
-        public void onCollisionHandlerPause() {
+        public void onPauseCollisionHandler() {
             boolean retry = true;
             running = false;
             while (retry) {
