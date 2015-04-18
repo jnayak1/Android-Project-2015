@@ -113,7 +113,7 @@ public class MainCharacter {
     private float getSpeedGravity(long startTimeMillis) {
         long currentTimeMillis = System.currentTimeMillis();
         long timeDiff = currentTimeMillis - startTimeMillis;
-        long scallingFactor = 50; // very touchy. probably not a good idea to mess with this
+        long scallingFactor = 70;
         long scalledTime = timeDiff / scallingFactor;
         float gravity = gamePractice.getGravity();
         float speed;
@@ -122,6 +122,7 @@ public class MainCharacter {
             System.out.println(speed);
         }
         else{
+            scalledTime = timeDiff / 300;
             speed = 0 + gravity*(scalledTime);
 
         }
