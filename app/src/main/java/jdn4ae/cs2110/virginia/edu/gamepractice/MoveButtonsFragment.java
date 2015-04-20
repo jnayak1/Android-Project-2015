@@ -14,11 +14,11 @@ import android.widget.Button;
 
 public class MoveButtonsFragment extends Fragment implements View.OnClickListener {
     Button upButton;
-    Button downButton;
+//    Button downButton;
     Button rightButton;
     Button leftButton;
     MoveButton moveUpButton;
-    MoveButton moveDownButton;
+//    MoveButton moveDownButton;
     MoveButton moveRightButton;
     MoveButton moveLeftButton;
 

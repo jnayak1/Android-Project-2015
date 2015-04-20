@@ -39,7 +39,7 @@ public class OtherButtonsFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.other_buttons:
+            case R.id.item_button:
                 otherItemButton.itemButtonClick();
              break;
 
