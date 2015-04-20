@@ -16,7 +16,6 @@ public class Ghost {
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
     private static int autoGenRadius = 200;
-    private Rect r;
 
 
     protected Ghost(float positionX, float positionY,
@@ -30,8 +29,6 @@ public class Ghost {
         this.gamePractice = gamePractice;
         this.size = size; // max size 8, won't get any bigger after that
         this.mainCharacter = gamePractice.getMainCharacter();
-        this.r = new Rect((int)this.positionX,(int)this.positionY,
-                (int)this.positionX+ghostBitmap.getWidth(),(int)this.positionY + ghostBitmap.getHeight() );
     }
 
     public float xDiff(){
@@ -83,15 +80,6 @@ public class Ghost {
         this.setPositionX(futureX);
         this.setPositionY(futureY);
     }
-
-//    public boolean collides(Rect hit) {
-//        if (Rect.intersects(this.r,hit)==true) {
-//           System.out.println("COLLISION");
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
 
     public void onDraw(Canvas canvas){
@@ -145,10 +133,6 @@ public class Ghost {
         return positionY;
     }
 
-    public Rect getR(){
-        System.out.println("getR inGhost");
-        return this.r;
-    }
     public Rect getRect(){
         Rect ghostRect = new Rect();
         ghostRect.left = (int) (this.getPositionX() - (1/2)*ghostBitmap.getWidth());
@@ -157,7 +141,6 @@ public class Ghost {
         ghostRect.bottom = (int) this.getPositionY() + (1/2) * ghostBitmap.getHeight();
 
         return ghostRect;
-
     }
 
     public static boolean ghostCollision(Ghost a, Ghost b){
