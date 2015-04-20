@@ -13,9 +13,15 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.lang.System;
+import java.util.concurrent.TimeUnit;
 
 public class GamePractice extends Activity implements OtherButton {
 
@@ -43,6 +49,9 @@ public class GamePractice extends Activity implements OtherButton {
     private volatile boolean shootButtonPressed;
     private static long autoGenGhostTimeMillis = 5000;
     private static final long START_UP_TIME = 2000;
+    private long beginingTime;
+    private long endTime;
+    private long timeLeft;
 
     private boolean musicIsBound = false;
     private MusicService musicService;
@@ -52,6 +61,8 @@ public class GamePractice extends Activity implements OtherButton {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         gravity = 10;
         shootButtonPressed = false;
@@ -94,6 +105,14 @@ public class GamePractice extends Activity implements OtherButton {
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
         startService(music);
+
+        beginingTime = System.currentTimeMillis();
+        endTime = beginingTime + 4*(1000)*(60);
+        timeLeft = endTime - beginingTime;
+        TextView timeTextView = (TextView) findViewById(R.id.timeTextView);
+        timeTextView.setText(Long.toString(timeLeft));
+
+
     }
 
     @Override
@@ -262,6 +281,7 @@ public class GamePractice extends Activity implements OtherButton {
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
+            timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
         }
     }
 
