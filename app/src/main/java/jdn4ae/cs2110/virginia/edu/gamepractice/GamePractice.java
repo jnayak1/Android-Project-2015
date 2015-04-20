@@ -306,7 +306,7 @@ public class GamePractice extends Activity implements OtherButton {
             System.out.println("collision called");
             boolean wasHit = false;
             for(int l=0; l < ghosts.size(); l++){
-                if(collides(ghosts.get(l).getR(), mainCharacter.getR() ) == true){
+                    if(collides(ghosts.get(l).getR(), getMainCharacter().getR())== true){
                     System.out.println("COLLISION");
                     wasHit = true;
                 };
