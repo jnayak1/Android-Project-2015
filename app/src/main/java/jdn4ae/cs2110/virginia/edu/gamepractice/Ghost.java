@@ -16,6 +16,7 @@ public class Ghost {
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
     private static int autoGenRadius = 200;
+    private Rect hitbox;
 
 
     protected Ghost(float positionX, float positionY,
@@ -29,6 +30,16 @@ public class Ghost {
         this.gamePractice = gamePractice;
         this.size = size; // max size 8, won't get any bigger after that
         this.mainCharacter = gamePractice.getMainCharacter();
+        Rect r = new Rect((int) this.getPositionX() - (1/2)*ghostBitmap.getWidth(), (int) this.getPositionY() - (1/2) * ghostBitmap.getHeight(),
+                (int) (this.getPositionX() + (1/2)*ghostBitmap.getWidth()), (int) this.getPositionY() + (1/2) * ghostBitmap.getHeight());
+        this.hitbox = r;
+    }
+
+    public boolean collidesWith(Rect r) {
+        if(this.hitbox.intersects(r)){
+            return true;
+        }
+        return false;
     }
 
     public float xDiff(){
