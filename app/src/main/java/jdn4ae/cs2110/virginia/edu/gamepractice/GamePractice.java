@@ -314,20 +314,20 @@ public class GamePractice extends Activity implements OtherButton {
         }
 
         public boolean collides(Rect r1, Rect r2) {
-           System.out.println("CamePractice collides method");
+//           System.out.println("CamePractice collides method");
             if (Rect.intersects(r1, r2)== true) {
-                System.out.println("COLLISION");
+//                System.out.println("COLLISION");
                 return true;
             } else {
                 return false;
             }
         }
         public boolean collision(){
-            System.out.println("collision called");
+//            System.out.println("collision called");
             boolean wasHit = false;
             for(int l=0; l < ghosts.size(); l++){
                     if(collides(ghosts.get(l).getR(), getMainCharacter().getR())== true){
-                    System.out.println("COLLISION");
+//                    System.out.println("COLLISION");
                     wasHit = true;
                 };
             }
@@ -361,12 +361,10 @@ public class GamePractice extends Activity implements OtherButton {
                     surfaceViewBitMapSRCRect.set(left, top, right, bottom);
                     mainCharacter.moveLeft();
                 }
-                if(MoveButtonsFragment.upIsPushed){
-                    mainCharacter.jump();
-                }
+
 
                 if(collision() == true){
-                    System.out.println("collision acknowledged");
+//                    System.out.println("collision acknowledged");
                 }
 
 
@@ -416,6 +414,9 @@ public class GamePractice extends Activity implements OtherButton {
                 e.printStackTrace();
             }
             while (running) {
+                if(MoveButtonsFragment.upIsPushed){
+                    mainCharacter.jump();
+                }
 
                 try {
                     Thread.sleep(20);
