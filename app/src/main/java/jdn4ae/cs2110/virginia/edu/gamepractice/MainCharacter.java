@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.lang.System;
@@ -23,6 +24,11 @@ public class MainCharacter {
     private boolean directionRight;
     private float positionX, positionY;
     private static float jumpAmount = 120;
+    private boolean jumped;
+    private int ammo;
+    private boolean rising;
+    private boolean falling;
+    private float intialJumpSpeed = 5;
 
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
@@ -43,7 +49,10 @@ public class MainCharacter {
         items = new ArrayList<Item>();
         moveAmount = gamePractice.getMoveAmount();
         directionRight = true;
-
+        jumped = false;
+        this.ammo = 10;
+        this.rising = false;
+        this.falling = false;
     }
 
     public void moveRight() {
@@ -61,19 +70,63 @@ public class MainCharacter {
 
     public void jump(){
         float startY = positionY;
-        positionY -= jumpAmount;
+        rise(startY);
         fall(startY);
-
     }
 
     public void fall(float baseHeight){
+        this.falling = true;
+        long startTimeMillis = System.currentTimeMillis();
+        long currentTimeMillis = startTimeMillis;
+        long futureTimeMillis = currentTimeMillis + 35;
         while( positionY < baseHeight){
-            if(System.currentTimeMillis()%600 == 0){
-                positionY += 10;
-
+            if(futureTimeMillis < System.currentTimeMillis()){
+                positionY += getSpeedGravity(startTimeMillis);
+                currentTimeMillis = System.currentTimeMillis();
+                futureTimeMillis = currentTimeMillis + 35;
             }
 
         }
+        this.setJumped(false);
+        this.falling = false;
+        this.setPositionY(baseHeight);
+    }
+
+    public void rise(float baseHeight){
+        this.rising = true;
+        long startTimeMillis = System.currentTimeMillis();
+        long currentTimeMillis = startTimeMillis;
+        long futureTimeMillis = currentTimeMillis + 35;
+        this.setJumped(true);
+        while( positionY > baseHeight - jumpAmount){
+            if(futureTimeMillis < System.currentTimeMillis()){
+                positionY -= getSpeedGravity(startTimeMillis);
+                currentTimeMillis = System.currentTimeMillis();
+                futureTimeMillis = currentTimeMillis + 35;
+            }
+
+        }
+        this.rising = false;
+
+    }
+
+    private float getSpeedGravity(long startTimeMillis) {
+        long currentTimeMillis = System.currentTimeMillis();
+        long timeDiff = currentTimeMillis - startTimeMillis;
+        long scallingFactor = 70;
+        long scalledTime = timeDiff / scallingFactor;
+        float gravity = gamePractice.getGravity();
+        float speed;
+        if(rising){
+            speed = Math.abs(intialJumpSpeed - gravity * (scalledTime));
+            System.out.println(speed);
+        }
+        else{
+            scalledTime = timeDiff / 300;
+            speed = 0 + gravity*(scalledTime);
+
+        }
+        return speed;
     }
 
     public void onDraw(Canvas canvas){
@@ -97,20 +150,23 @@ public class MainCharacter {
     }
 
     public void shoot(BulletArrayList bulletArrayList){
-        Rect characterRect = new Rect(this.getRect());
-        float rightX = characterRect.right;
-        float centerY = characterRect.exactCenterY();
-        Bullet bullet = new Bullet(rightX,centerY,this.gamePractice);
-        Bitmap bulletBitmap = bullet.getBitmap();
-        float bulletBitmapWidth = bulletBitmap.getWidth();
-        if(directionRight){
-            bullet.setPositionX(bullet.getPositionX() + (7/4) * bulletBitmapWidth);
+        if(!(this.getAmmo() == 0)) {
+            Rect characterRect = new Rect(this.getRect());
+            float rightX = characterRect.right;
+            float centerY = characterRect.exactCenterY();
+            Bullet bullet = new Bullet(rightX, centerY, this.gamePractice);
+            Bitmap bulletBitmap = bullet.getBitmap();
+            float bulletBitmapWidth = bulletBitmap.getWidth();
+            if (directionRight) {
+                bullet.setPositionX(bullet.getPositionX() +  bulletBitmapWidth);
+            } else {
+                bullet.setPositionX(bullet.getPositionX() - bulletBitmapWidth);
+            }
+            bulletArrayList.add(bullet);
+            this.ammo -= 1;
         }
-        else{
-            bullet.setPositionX(bullet.getPositionX() - (3/4) * bulletBitmapWidth);
-        }
-        bulletArrayList.add(bullet);
     }
+
     public float getPositionX() { return positionX; }
 
     public void setPositionX(float positionX) { this.positionX = positionX; }
@@ -134,6 +190,18 @@ public class MainCharacter {
 
     public boolean isDirectionRight() {
         return directionRight;
+    }
+
+    public boolean getJumped(){
+        return this.jumped;
+    }
+
+    public void setJumped(boolean jumped) {
+        this.jumped = jumped;
+    }
+
+    public int getAmmo() {
+        return ammo;
     }
 }
 

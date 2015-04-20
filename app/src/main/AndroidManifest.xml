@@ -27,6 +27,10 @@
         <activity android:name=".StartScreen"
             android:screenOrientation="portrait">
         </activity>
+
+        <service android:name="MusicService"
+            android:enabled="true"/>
+
     </application>
 
 </manifest>

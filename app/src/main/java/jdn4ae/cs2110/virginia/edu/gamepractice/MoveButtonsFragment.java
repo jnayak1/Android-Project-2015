@@ -8,19 +8,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class MoveButtonsFragment extends Fragment implements View.OnClickListener {
+public class MoveButtonsFragment extends Fragment implements View.OnTouchListener {
     Button upButton;
-//    Button downButton;
+    static boolean upIsPushed;
     Button rightButton;
+    static boolean rightIsPushed;
     Button leftButton;
-    MoveButton moveUpButton;
-//    MoveButton moveDownButton;
-    MoveButton moveRightButton;
-    MoveButton moveLeftButton;
+    static boolean leftIsPushed;
 
     @Nullable
     @Override
@@ -31,34 +30,50 @@ public class MoveButtonsFragment extends Fragment implements View.OnClickListene
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        moveUpButton = (MoveButton) getActivity();
         upButton = (Button) getActivity().findViewById(R.id.up_button);
-        upButton.setOnClickListener(this);
+        upButton.setOnTouchListener(this);
 
-        moveRightButton = (MoveButton) getActivity();
         rightButton = (Button) getActivity().findViewById(R.id.right_button);
-        rightButton.setOnClickListener(this);
+        rightButton.setOnTouchListener(this);
 
-        moveLeftButton = (MoveButton) getActivity();
         leftButton = (Button) getActivity().findViewById(R.id.left_button);
-        leftButton.setOnClickListener(this);
+        leftButton.setOnTouchListener(this);
     }
 
     @Override
-    public void onClick(View v) {
+    public boolean onTouch(View v, MotionEvent e) {
 
-        switch(v.getId()){
+        switch(v.getId()) {
             case R.id.right_button:
-                moveUpButton.rightButtonClick();
-            break;
+                int actionRight = e.getAction();
+                if (actionRight == MotionEvent.ACTION_DOWN){
+                    rightIsPushed = true;
+                }
+                if(actionRight == MotionEvent.ACTION_UP){
+                    rightIsPushed = false;
+                }
+            return true;
 
             case R.id.left_button:
-                moveLeftButton.leftButtonClick();
-            break;
+                int actionLeft = e.getAction();
+                if (actionLeft == MotionEvent.ACTION_DOWN){
+                    leftIsPushed = true;
+                }
+                if(actionLeft == MotionEvent.ACTION_UP){
+                    leftIsPushed = false;
+                }
+                return true;
 
             case R.id.up_button:
-                moveUpButton.upButtonClick();
-            break;
+                int actionUp = e.getAction();
+                if(actionUp == MotionEvent.ACTION_DOWN){
+                    upIsPushed = true;
+                }
+                if(actionUp == MotionEvent.ACTION_UP){
+                    upIsPushed = false;
+                }
+            return true;
         }
+        return true;
     }
 }
