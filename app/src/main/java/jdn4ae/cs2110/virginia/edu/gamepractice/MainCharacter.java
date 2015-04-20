@@ -29,6 +29,7 @@ public class MainCharacter {
     private boolean rising;
     private boolean falling;
     private float intialJumpSpeed = 5;
+    private Rect r;
 
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
@@ -45,6 +46,8 @@ public class MainCharacter {
 
         this.positionX = positionX - (1/2)*characterBitmap.getWidth();
         this.positionY = positionY - (1/2)*characterBitmap.getHeight();
+        this.r = new Rect((int)this.positionX,(int)this.positionY,
+                (int)this.positionX+characterBitmap.getWidth(),(int)this.positionY + characterBitmap.getHeight() );
         this.gamePractice = gamePractice;
         items = new ArrayList<Item>();
         moveAmount = gamePractice.getMoveAmount();
@@ -73,6 +76,15 @@ public class MainCharacter {
         rise(startY);
         fall(startY);
     }
+
+//    public boolean collides(Rect hit) {
+//        if (Rect.intersects(this.r,hit)==true) {
+//            System.out.println("COLLISION");
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     public void fall(float baseHeight){
         this.falling = true;
@@ -113,17 +125,17 @@ public class MainCharacter {
     private float getSpeedGravity(long startTimeMillis) {
         long currentTimeMillis = System.currentTimeMillis();
         long timeDiff = currentTimeMillis - startTimeMillis;
-        long scallingFactor = 70;
-        long scalledTime = timeDiff / scallingFactor;
+        long scalingFactor = 70;
+        long scaledTime = timeDiff / scalingFactor;
         float gravity = gamePractice.getGravity();
         float speed;
         if(rising){
-            speed = Math.abs(intialJumpSpeed - gravity * (scalledTime));
+            speed = Math.abs(intialJumpSpeed - gravity * (scaledTime));
             System.out.println(speed);
         }
         else{
-            scalledTime = timeDiff / 300;
-            speed = 0 + gravity*(scalledTime);
+            scaledTime = timeDiff / 300;
+            speed = 0 + gravity*(scaledTime);
 
         }
         return speed;
@@ -140,6 +152,10 @@ public class MainCharacter {
         }
     }
 
+    public Rect getR() {
+        System.out.println("getR in MainCharacter");
+        return this.r;
+    }
     public Rect getRect() {
         Rect characterRect = new Rect();
         characterRect.left = (int) (this.getPositionX() - (1/2)*characterBitmap.getWidth());
@@ -147,6 +163,8 @@ public class MainCharacter {
         characterRect.top = (int) this.getPositionY() - (1/2) * characterBitmap.getHeight();
         characterRect.bottom = (int) this.getPositionY() + (1/2) * characterBitmap.getHeight();
         return characterRect;
+
+
     }
 
     public void shoot(BulletArrayList bulletArrayList){
