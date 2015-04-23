@@ -1,5 +1,6 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
@@ -44,6 +45,13 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
+                Intent intent = new Intent(gamePractice,EndGame.class);
+                try {
+                    gamePractice.startActivity(intent);
+                }catch (Exception e){
+                    System.out.println("exception caught");
+                }
+
             }
             if(ghost.collided(gamePractice.getBullets())){
                 System.out.println("collision with bullets");

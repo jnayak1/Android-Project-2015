@@ -121,7 +121,6 @@ public class GamePractice extends Activity implements OtherButton {
         mapSurfaceView.onPauseMapSurfaceView();
         lrButtonHandler.onPauseLRButtonHandler();
         upButtonHandler.onPauseUpButtonHandler();
-        musicService.pauseMusic();
     }
 
     @Override

@@ -27,6 +27,9 @@
         <activity android:name=".StartScreen"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".EndGame"
+            android:screenOrientation="portrait">
+        </activity>
 
         <service android:name="MusicService"
             android:enabled="true"/>
