@@ -16,6 +16,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
     private final int autoGenTime = 30;
     private MainCharacter mainCharacter;
     private BulletArrayList bullets;
+    private int ghostsKilled;
 
     public GhostArrayList(Collection<? extends Ghost> collection, GamePractice gamePractice) {
         super(collection);
@@ -23,6 +24,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
         autoGenCounter = 0;
         mainCharacter = gamePractice.getMainCharacter();
         bullets = gamePractice.getBullets();
+        this.ghostsKilled = 0;
 
     }
 
@@ -41,6 +43,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
             if(this.collided(ghost)){
                 System.out.println("collision with ghost");
                 this.remove(ghost);
+                ghostsKilled ++;
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
