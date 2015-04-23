@@ -41,7 +41,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
             ghost.move();
             if(this.collided(ghost)){
                 System.out.println("collision with ghost");
-                this.remove(ghost);
+                iterator.remove();
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
@@ -63,7 +63,9 @@ public class GhostArrayList extends ArrayList<Ghost> {
 
     public void onDraw(Canvas canvas) {
         update();
-        for(Ghost ghost : this){
+        Iterator<Ghost> iterator = this.iterator();
+        while(iterator.hasNext()){
+            Ghost ghost = iterator.next();
             ghost.onDraw(canvas);
         }
     }
