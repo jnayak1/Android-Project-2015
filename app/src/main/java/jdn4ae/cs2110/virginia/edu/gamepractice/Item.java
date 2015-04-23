@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 public class Item {
+    private static float itemBuffer = 20;
     private MainCharacter maincharacter;
     float positionX,positionY;
     GamePractice gamePractice;
@@ -42,8 +43,8 @@ public class Item {
         float mainCharacterY = mainCharacter.getPositionY();
         float changeDistanceX = (float)( 2*Math.random() - 1) * 150;
         float changeDistanceY = (float)( Math.random()) * 150;
-        float randomX = mainCharacterX + changeDistanceX;
-        float randomY = mainCharacterY + changeDistanceY;
+        float randomX = mainCharacterX + changeDistanceX + itemBuffer;
+        float randomY = (mainCharacterY + (changeDistanceY * (-1))) - itemBuffer;
         Item item = new Item(mainCharacter, randomX, randomY, gamePractice);
         itemArrayList.add(item);
     }
