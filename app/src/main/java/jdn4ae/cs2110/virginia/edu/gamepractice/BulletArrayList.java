@@ -24,6 +24,11 @@ public class BulletArrayList extends ArrayList<Bullet> {
     }
 
     public void update(){
+        updateBulletRects();
+        boolean shootButtonPressed = gamePractice.isShootButtonPressed();
+        if(shootButtonPressed) {
+            mainCharacter.shoot(this);
+        }
         for(Bullet bullet : this){
             bullet.move();
         }
@@ -36,5 +41,13 @@ public class BulletArrayList extends ArrayList<Bullet> {
         }
     }
 
+    public void updateBulletRects(){
+        for(Bullet bullet : this){
+            bulletRects.add(bullet.getRect());
+        }
+    }
 
+    public void setBulletRects(Set<Rect> bulletRects) {
+        this.bulletRects = bulletRects;
+    }
 }

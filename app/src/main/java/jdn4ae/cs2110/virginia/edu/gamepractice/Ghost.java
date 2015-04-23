@@ -184,4 +184,14 @@ public class Ghost {
         }
         return false;
     }
+
+    public boolean collided(BulletArrayList bullets) {
+        boolean value = false;
+        for(Bullet bullet : bullets){
+            if(Rect.intersects(bullet.getRect(),this.getGhostRect())){
+                value = true;
+            }
+        }
+        return value;
+    }
 }

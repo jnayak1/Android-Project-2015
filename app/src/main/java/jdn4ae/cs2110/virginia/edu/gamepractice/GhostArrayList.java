@@ -30,6 +30,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
             Ghost.autoGenerate(this,gamePractice);
             autoGenCounter = 0;
         }
+        bullets = gamePractice.getBullets();
         for(Ghost ghost : this){
             ghost.move();
             if(this.collided(ghost)){
@@ -37,6 +38,9 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
+            }
+            if(ghost.collided(gamePractice.getBullets())){
+                System.out.println("collision with bullets");
             }
         }
         autoGenCounter++;
