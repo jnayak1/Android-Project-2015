@@ -35,6 +35,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
             ghost.move();
             if(this.collided(ghost)){
                 System.out.println("collision with ghost");
+                this.remove(ghost);
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
