@@ -54,6 +54,7 @@ public class MainCharacter {
         this.ammo = 10;
         this.rising = false;
         this.falling = false;
+        this.items = new ArrayList<Item>();
     }
 
     public void moveRight() {
@@ -210,6 +211,10 @@ public class MainCharacter {
 
     public int getAmmo() {
         return ammo;
+    }
+
+    public ArrayList getItems() {
+        return items;
     }
 }
 

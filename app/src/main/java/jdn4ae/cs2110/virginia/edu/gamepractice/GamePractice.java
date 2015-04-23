@@ -48,6 +48,7 @@ public class GamePractice extends Activity implements OtherButton {
     private long beginingTime;
     private long endTime;
     private long timeLeft;
+    private ItemArrayList items;
 
     private boolean musicIsBound = false;
     private MusicService musicService;
@@ -88,6 +89,7 @@ public class GamePractice extends Activity implements OtherButton {
                     mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
                     ghosts = new GhostArrayList(new ArrayList<Ghost>(), GamePractice.this);
                     bullets = new BulletArrayList(new ArrayList<Bullet>(), GamePractice.this);
+                    items = new ItemArrayList(new ArrayList<Item>(),GamePractice.this);
                 }
             });
         }
@@ -388,6 +390,10 @@ public class GamePractice extends Activity implements OtherButton {
 
     public BulletArrayList getBullets() {
         return bullets;
+    }
+
+    public ItemArrayList getItems() {
+        return items;
     }
 }
 
