@@ -40,6 +40,7 @@ public class GamePractice extends Activity implements OtherButton {
     private BulletArrayList bullets;
     private float startTime;
     private float gravity;
+    private LRButtonHandler lrButtonHandler;
     private UpButtonHandler upButtonHandler;
     private volatile boolean shootButtonPressed;
     private static long autoGenGhostTimeMillis = 5000;
@@ -90,6 +91,7 @@ public class GamePractice extends Activity implements OtherButton {
                 }
             });
         }
+        lrButtonHandler = new LRButtonHandler();
         upButtonHandler = new UpButtonHandler();
 
         Intent music = new Intent();
@@ -109,6 +111,7 @@ public class GamePractice extends Activity implements OtherButton {
     protected void onResume() {
         super.onResume();
         mapSurfaceView.onResumeMapSurfaceView();
+        lrButtonHandler.onResumeLRButtonHandler();
         upButtonHandler.onResumeUpButtonHandler();
     }
 
@@ -116,6 +119,7 @@ public class GamePractice extends Activity implements OtherButton {
     protected void onPause() {
         super.onPause();
         mapSurfaceView.onPauseMapSurfaceView();
+        lrButtonHandler.onPauseLRButtonHandler();
         upButtonHandler.onPauseUpButtonHandler();
         musicService.pauseMusic();
     }
@@ -124,6 +128,7 @@ public class GamePractice extends Activity implements OtherButton {
     protected void onDestroy() {
         super.onDestroy();
         mapSurfaceView.onPauseMapSurfaceView();
+        lrButtonHandler.onPauseLRButtonHandler();
         upButtonHandler.onPauseUpButtonHandler();
         musicService.onDestroy();
     }
@@ -257,30 +262,73 @@ public class GamePractice extends Activity implements OtherButton {
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
             timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
-
-
-            if (MoveButtonsFragment.rightIsPushed) {
-                int left = surfaceViewBitMapSRCRect.left + moveAmount;
-                int top = surfaceViewBitMapSRCRect.top;
-                int right = surfaceViewBitMapSRCRect.right + moveAmount;
-                int bottom = surfaceViewBitMapSRCRect.bottom;
-
-                surfaceViewBitMapSRCRect.set(left, top, right, bottom);
-                mainCharacter.moveRight();
-            }
-            if (MoveButtonsFragment.leftIsPushed) {
-                int left = surfaceViewBitMapSRCRect.left - moveAmount;
-                int top = surfaceViewBitMapSRCRect.top;
-                int right = surfaceViewBitMapSRCRect.right - moveAmount;
-                int bottom = surfaceViewBitMapSRCRect.bottom;
-                surfaceViewBitMapSRCRect.set(left, top, right, bottom);
-                mainCharacter.moveLeft();
-            }
-
-
         }
     }
 
+    public class LRButtonHandler implements Runnable {
+        Thread thread;
+        volatile boolean running;
+
+        public LRButtonHandler() {
+            this.thread = null;
+            this.running = false;
+        }
+
+        public void onResumeLRButtonHandler() {
+            running = true;
+            thread = new Thread(this);
+            thread.start();
+        }
+
+        public void onPauseLRButtonHandler() {
+            boolean retry = true;
+            running = false;
+            while (retry) {
+                try {
+                    thread.join();
+                    retry = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(START_UP_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            while (running) {
+                if (MoveButtonsFragment.rightIsPushed) {
+                    int left = surfaceViewBitMapSRCRect.left + moveAmount;
+                    int top = surfaceViewBitMapSRCRect.top;
+                    int right = surfaceViewBitMapSRCRect.right + moveAmount;
+                    int bottom = surfaceViewBitMapSRCRect.bottom;
+
+                    surfaceViewBitMapSRCRect.set(left, top, right, bottom);
+                    mainCharacter.moveRight();
+                }
+                if (MoveButtonsFragment.leftIsPushed) {
+                    int left = surfaceViewBitMapSRCRect.left - moveAmount;
+                    int top = surfaceViewBitMapSRCRect.top;
+                    int right = surfaceViewBitMapSRCRect.right - moveAmount;
+                    int bottom = surfaceViewBitMapSRCRect.bottom;
+                    surfaceViewBitMapSRCRect.set(left, top, right, bottom);
+                    mainCharacter.moveLeft();
+                }
+
+
+                try {
+                    Thread.sleep(20);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public class UpButtonHandler implements Runnable {
         Thread thread;
