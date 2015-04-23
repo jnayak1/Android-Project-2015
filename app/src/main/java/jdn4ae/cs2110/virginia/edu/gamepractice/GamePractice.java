@@ -42,10 +42,6 @@ public class GamePractice extends Activity implements OtherButton {
     private float gravity;
     private LRButtonHandler lrButtonHandler;
     private UpButtonHandler upButtonHandler;
-    private BulletHandler bulletHandler;
-    private GhostHandler ghostHandler;
-    private CollisionHandler collisionHandler;
-    private ItemHandler itemHandler;
     private volatile boolean shootButtonPressed;
     private static long autoGenGhostTimeMillis = 5000;
     private static final long START_UP_TIME = 2000;
@@ -91,16 +87,12 @@ public class GamePractice extends Activity implements OtherButton {
                     characterX = surfaceViewBitMapWidth /2;
                     mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
                     ghosts = new GhostArrayList(new ArrayList<Ghost>(), GamePractice.this);
-                    bullets = new BulletArrayList(new ArrayList<Bullet>());
+                    bullets = new BulletArrayList(new ArrayList<Bullet>(), GamePractice.this);
                 }
             });
         }
         lrButtonHandler = new LRButtonHandler();
         upButtonHandler = new UpButtonHandler();
-        bulletHandler = new BulletHandler();
-        ghostHandler = new GhostHandler();
-        itemHandler = new ItemHandler();
-        collisionHandler = new CollisionHandler();
 
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
@@ -121,10 +113,6 @@ public class GamePractice extends Activity implements OtherButton {
         mapSurfaceView.onResumeMapSurfaceView();
         lrButtonHandler.onResumeLRButtonHandler();
         upButtonHandler.onResumeUpButtonHandler();
-        bulletHandler.onResumeBulletHandler();
-        ghostHandler.onResumeGhostHandler();
-        itemHandler.onResumeItemHandler();
-        collisionHandler.onResumeCollisionHandler();
     }
 
     @Override
@@ -133,10 +121,6 @@ public class GamePractice extends Activity implements OtherButton {
         mapSurfaceView.onPauseMapSurfaceView();
         lrButtonHandler.onPauseLRButtonHandler();
         upButtonHandler.onPauseUpButtonHandler();
-        bulletHandler.onPauseBulletHandler();
-        ghostHandler.onPauseGhostHandler();
-        itemHandler.onPauseItemHandler();
-        collisionHandler.onPauseCollisionHandler();
         musicService.pauseMusic();
     }
 
@@ -146,10 +130,6 @@ public class GamePractice extends Activity implements OtherButton {
         mapSurfaceView.onPauseMapSurfaceView();
         lrButtonHandler.onPauseLRButtonHandler();
         upButtonHandler.onPauseUpButtonHandler();
-        bulletHandler.onPauseBulletHandler();
-        ghostHandler.onPauseGhostHandler();
-        itemHandler.onPauseItemHandler();
-        collisionHandler.onPauseCollisionHandler();
         musicService.onDestroy();
     }
 
@@ -399,185 +379,16 @@ public class GamePractice extends Activity implements OtherButton {
         }
     }
 
-    public class BulletHandler implements Runnable{
-        Thread thread;
-        volatile boolean running;
-
-        public BulletHandler() {
-            this.thread = null;
-            this.running = false;
-        }
-
-        public void onResumeBulletHandler(){
-            running = true;
-            thread = new Thread(this);
-            thread.start();
-        }
-
-        public void onPauseBulletHandler(){
-            boolean retry = true;
-            running = false;
-            while (retry) {
-                try {
-                    thread.join();
-                    retry = false;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(START_UP_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            while (running) {
-                if(shootButtonPressed) {
-                    mainCharacter.shoot(bullets);
-                    shootButtonPressed = false;
-                }
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public boolean isShootButtonPressed() {
+        return shootButtonPressed;
     }
 
-    public class GhostHandler implements Runnable{
-        Thread thread;
-        volatile boolean running;
-
-        public GhostHandler() {
-            this.thread = null;
-            this.running = false;
-        }
-        public void onResumeGhostHandler() {
-            running = true;
-            thread = new Thread(this);
-            thread.start();
-        }
-        public void onPauseGhostHandler() {
-            boolean retry = true;
-            running = false;
-            while (retry) {
-                try {
-                    thread.join();
-                    retry = false;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(START_UP_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            while (running) {
-                Ghost.autoGenerate(ghosts, GamePractice.this);
-                try {
-                    Thread.sleep(autoGenGhostTimeMillis);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public void setShootButtonPressed(boolean shootButtonPressed) {
+        this.shootButtonPressed = shootButtonPressed;
     }
 
-    public class ItemHandler implements Runnable{
-        Thread thread;
-        volatile boolean running;
-
-        public ItemHandler() {
-            this.thread = null;
-            this.running = false;
-        }
-        public void onResumeItemHandler() {
-            running = true;
-            thread = new Thread(this);
-            thread.start();
-        }
-        public void onPauseItemHandler() {
-            boolean retry = true;
-            running = false;
-            while (retry) {
-                try {
-                    thread.join();
-                    retry = false;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(START_UP_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            while (running) {
-
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public class CollisionHandler implements Runnable{
-        Thread thread;
-        volatile boolean running;
-
-        public CollisionHandler() {
-            this.thread = null;
-            this.running = false;
-        }
-        public void onResumeCollisionHandler() {
-            running = true;
-            thread = new Thread(this);
-            thread.start();
-        }
-        public void onPauseCollisionHandler() {
-            boolean retry = true;
-            running = false;
-            while (retry) {
-                try {
-                    thread.join();
-                    retry = false;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(START_UP_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            while (running) {
-
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    public BulletArrayList getBullets() {
+        return bullets;
     }
 }
 

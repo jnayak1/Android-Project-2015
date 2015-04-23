@@ -5,9 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Rect;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.lang.System;
@@ -29,7 +27,7 @@ public class MainCharacter {
     private boolean rising;
     private boolean falling;
     private float intialJumpSpeed = 5;
-    private Rect r;
+    private Rect rect;
 
 
     public MainCharacter(float positionX, float positionY, GamePractice gamePractice) {
@@ -44,9 +42,9 @@ public class MainCharacter {
         leftCharacterBitmap = Bitmap.createBitmap(characterBitmap, 0, 0,
                 characterBitmap.getWidth(), characterBitmap.getHeight(), matrix, false);
 
-        this.positionX = positionX - (1/2)*characterBitmap.getWidth();
-        this.positionY = positionY - (1/2)*characterBitmap.getHeight();
-        this.r = new Rect((int)this.positionX,(int)this.positionY,
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.rect = new Rect((int)this.positionX,(int)this.positionY,
                 (int)this.positionX+characterBitmap.getWidth(),(int)this.positionY + characterBitmap.getHeight() );
         this.gamePractice = gamePractice;
         items = new ArrayList<Item>();
@@ -76,15 +74,6 @@ public class MainCharacter {
         rise(startY);
         fall(startY);
     }
-
-//    public boolean collides(Rect hit) {
-//        if (Rect.intersects(this.r,hit)==true) {
-//            System.out.println("COLLISION");
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     public void fall(float baseHeight){
         this.falling = true;
@@ -147,24 +136,23 @@ public class MainCharacter {
         float left = gamePractice.getSurfaceViewBitMapSRCRect().left;
         float right = gamePractice.getSurfaceViewBitMapSRCRect().right;
 
+
+
         if(this.getRect().intersect(gamePractice.getSurfaceViewBitMapSRCRect())){
             canvas.drawBitmap(this.characterBitmap, this.getPositionX(), this.getPositionY(), null);
         }
     }
-
-    public Rect getR() {
-        System.out.println("getR in MainCharacter");
-        return this.r;
-    }
     public Rect getRect() {
         Rect characterRect = new Rect();
-        characterRect.left = (int) (this.getPositionX() - (1/2)*characterBitmap.getWidth());
-        characterRect.right = (int) (this.getPositionX() + (1/2)*characterBitmap.getWidth());
-        characterRect.top = (int) this.getPositionY() - (1/2) * characterBitmap.getHeight();
-        characterRect.bottom = (int) this.getPositionY() + (1/2) * characterBitmap.getHeight();
+        characterRect.left = (int) this.getPositionX();
+        characterRect.right = (int) (this.getPositionX() + characterBitmap.getWidth());
+        characterRect.top = (int) this.getPositionY();
+        characterRect.bottom = (int) this.getPositionY() + characterBitmap.getHeight();
         return characterRect;
+    }
 
-
+    public boolean ghostCollision(Ghost a){
+        return Rect.intersects(a.getGhostRect(),this.getRect());
     }
 
     public void shoot(BulletArrayList bulletArrayList){
@@ -182,6 +170,8 @@ public class MainCharacter {
             }
             bulletArrayList.add(bullet);
             this.ammo -= 1;
+            gamePractice.setShootButtonPressed(false);
+            System.out.println("shoot maincharacter");
         }
     }
 

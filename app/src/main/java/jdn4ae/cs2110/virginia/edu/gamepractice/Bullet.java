@@ -16,6 +16,7 @@ public class Bullet {
     private static float bulletMoveAmount = 100;
     private static int size = 4;
     private boolean directionRight;
+    private Rect rect;
 
     public Bullet(float positionX, float positionY, GamePractice gamePractice) {
         this.gamePractice = gamePractice;
@@ -39,6 +40,9 @@ public class Bullet {
         if(!directionRight){
             bitmap = bitmapLeft;
         }
+
+        rect = new Rect((int) positionX, (int) positionY,
+                (int) positionX + bitmap.getWidth(), (int) positionY + bitmap.getHeight());
     }
 
 
@@ -50,6 +54,7 @@ public class Bullet {
     public void move(){
         float futureX = this.getFutureX();
         this.setPositionX(futureX);
+        this.updateRect();
     }
 
     private float getFutureX() {
@@ -65,15 +70,17 @@ public class Bullet {
     }
 
 
-    public Rect getRect(){
-        Rect bulletRect = new Rect();
-        int left = (int) this.positionX - (1/2) * this.bitmap.getWidth();
-        int right = (int) this.positionX + (1/2) * this.bitmap.getWidth();
-        int top = (int) this.positionY - (1/2) * this.bitmap.getHeight();
-        int bottom = (int) this.positionY + (1/2) * this.bitmap.getHeight();
+    public void updateRect(){
+        int left = (int) this.positionX;
+        int right = (int) this.positionX + this.bitmap.getWidth();
+        int top = (int) this.positionY;
+        int bottom = (int) this.positionY + this.bitmap.getHeight();
 
-        bulletRect.set(left,top,right,bottom);
-        return bulletRect;
+        rect.set(left,top,right,bottom);
+    }
+
+    public Rect getRect(){
+        return rect;
     }
 
     public float getPositionX() {
@@ -99,4 +106,19 @@ public class Bullet {
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
+
+    public boolean ghostCollision(Ghost a){
+        return Rect.intersects(a.getGhostRect(),this.getRect());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bullet)) return false;
+        Bullet bullet = (Bullet) o;
+        return Rect.intersects(bullet.getRect(),this.getRect());
+
+    }
+
+   
 }
