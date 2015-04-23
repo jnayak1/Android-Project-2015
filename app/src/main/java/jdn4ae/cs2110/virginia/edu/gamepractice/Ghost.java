@@ -13,10 +13,10 @@ public class Ghost {
     private MainCharacter mainCharacter;
     private Bitmap ghostBitmap;
     private float positionX, positionY;
+    private Rect ghostRect;
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
     private static int autoGenRadius = 200;
-    private Rect r;
 
 
     protected Ghost(float positionX, float positionY,
@@ -25,13 +25,14 @@ public class Ghost {
         options.inSampleSize = MAX_SIZE / size; // max size 8, won't get any bigger after that
         this.ghostBitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
                 R.drawable.ghost, options);
-        this.positionX = positionX - (1/2)*ghostBitmap.getWidth();
-        this.positionY = positionY - (1/2)*ghostBitmap.getHeight();
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.gamePractice = gamePractice;
         this.size = size; // max size 8, won't get any bigger after that
         this.mainCharacter = gamePractice.getMainCharacter();
-        this.r = new Rect((int)this.positionX, (int)this.positionY,
-                (int) this.positionX + this.ghostBitmap.getWidth(),(int)this.positionY + this.getGhostBitmap().getHeight());
+        ghostRect = new Rect((int) positionX,(int) positionY,
+                (int) positionX + ghostBitmap.getWidth(),
+                (int) positionY + ghostBitmap.getHeight());
     }
 
     public float xDiff(){
@@ -78,6 +79,8 @@ public class Ghost {
     }
 
     public void move(){
+        this.moveGhostRectX((int) this.changeX());
+        this.moveGhostRectY((int) this.changeY());
         float futureX = this.futureX();
         float futureY = this.futureY();
         this.setPositionX(futureX);
@@ -86,7 +89,7 @@ public class Ghost {
 
 
     public void onDraw(Canvas canvas){
-        if(this.getRect().intersect(gamePractice.getSurfaceViewBitMapSRCRect())){
+        if(Rect.intersects(gamePractice.getSurfaceViewBitMapSRCRect(), this.getGhostRect())){
             canvas.drawBitmap(this.getGhostBitmap(), this.getPositionX(),
                     this.getPositionY(), null);
         }
@@ -136,32 +139,26 @@ public class Ghost {
         return positionY;
     }
 
-    public Rect getRect(){
-        Rect ghostRect = new Rect();
-        ghostRect.left = (int) (this.getPositionX() - (1/2)*ghostBitmap.getWidth());
-        ghostRect.right = (int) (this.getPositionX() + (1/2)*ghostBitmap.getWidth());
-        ghostRect.top = (int) this.getPositionY() - (1/2) * ghostBitmap.getHeight();
-        ghostRect.bottom = (int) this.getPositionY() + (1/2) * ghostBitmap.getHeight();
 
-        return ghostRect;
-    }
-    public Rect getR() {
-        System.out.println("getR in ghost");
-        return this.r;
+    public Rect getGhostRect() {
+        return this.ghostRect;
     }
 
-    public static boolean ghostCollision(Ghost a, Ghost b){
-        return a.getRect().intersect(b.getRect());
+    public void setGhostRect(int left, int top, int right, int bottom) {
+        this.ghostRect.left = left;
+        this.ghostRect.right = right;
+        this.ghostRect.top = top;
+        this.ghostRect.bottom = bottom;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        boolean value = false;
-        if(o instanceof Ghost){
-            Ghost ghostO = (Ghost) o;
-            value = this.getRect().intersect(ghostO.getRect());
-        }
-        return value;
+    public void moveGhostRectX(int moveAmount){
+        this.ghostRect.left += moveAmount;
+        this.ghostRect.right += moveAmount;
+    }
+
+    public void moveGhostRectY(int moveAmount){
+        this.ghostRect.top += moveAmount;
+        this.ghostRect.bottom += moveAmount;
     }
 
     public static void autoGenerate(GhostArrayList ghostArrayList, GamePractice gamePractice){
@@ -174,6 +171,16 @@ public class Ghost {
         float ghostY = mainCharacterY + changeDistanceY;
         Ghost ghost = new Ghost(ghostX,ghostY,gamePractice,1);
         ghostArrayList.add(ghost);
-        System.out.println("ghost generated");
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o instanceof Ghost){
+            Ghost ghostO = (Ghost) o;
+            return Rect.intersects(this.ghostRect,((Ghost) o).getGhostRect());
+        }
+        return false;
     }
 }

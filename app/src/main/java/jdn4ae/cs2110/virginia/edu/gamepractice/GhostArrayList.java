@@ -5,6 +5,7 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,6 +28,9 @@ public class GhostArrayList extends ArrayList<Ghost> {
     public void update(){
         for(Ghost ghost : this){
             ghost.move();
+            if(this.collided(ghost)){
+                System.out.println("collision ghostArrayList");
+            }
         }
     }
 
@@ -35,5 +39,9 @@ public class GhostArrayList extends ArrayList<Ghost> {
         for(Ghost ghost : this){
             ghost.onDraw(canvas);
         }
+    }
+
+    public boolean collided(Ghost ghost){
+        return (Collections.frequency(this,ghost) > 1);
     }
 }
