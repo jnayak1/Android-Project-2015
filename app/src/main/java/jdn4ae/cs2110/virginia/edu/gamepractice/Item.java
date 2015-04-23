@@ -16,7 +16,7 @@ public class Item {
         this.positionY = Y;
         this.gamePractice = gamePractice;
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 4;
+        options.inSampleSize = 32;
         this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
                 R.drawable.item,options);
     }

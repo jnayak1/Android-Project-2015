@@ -263,7 +263,7 @@ public class GamePractice extends Activity implements OtherButton {
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
             timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
-            items.update();
+            items.onDraw(updateCanvas);
         }
     }
 
