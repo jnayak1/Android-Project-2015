@@ -47,10 +47,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(ghost.collided(gamePractice.getBullets())){
                 System.out.println("collision with bullets");
-<<<<<<< HEAD
                 iterator.remove();
-=======
->>>>>>> origin/branch2
             }
         }
         autoGenCounter++;
