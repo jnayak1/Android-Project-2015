@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 
 /**
  * Created by pnayak1 on 4/15/15.
@@ -31,7 +32,11 @@ public class GhostArrayList extends ArrayList<Ghost> {
             autoGenCounter = 0;
         }
         bullets = gamePractice.getBullets();
-        for(Ghost ghost : this){
+
+        Iterator<Ghost> iterator = this.iterator();
+
+        while(iterator.hasNext()){
+            Ghost ghost = iterator.next();
             ghost.move();
             if(this.collided(ghost)){
                 System.out.println("collision with ghost");
@@ -42,7 +47,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(ghost.collided(gamePractice.getBullets())){
                 System.out.println("collision with bullets");
-                this.remove(ghost);
+                iterator.remove();
             }
         }
         autoGenCounter++;

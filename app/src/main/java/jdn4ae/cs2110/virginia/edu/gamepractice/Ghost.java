@@ -24,7 +24,7 @@ public class Ghost {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = MAX_SIZE / size; // max size 8, won't get any bigger after that
         this.ghostBitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
-                R.drawable.ghost, options);
+                R.drawable.ghost2, options);
         this.positionX = positionX;
         this.positionY = positionY;
         this.gamePractice = gamePractice;
