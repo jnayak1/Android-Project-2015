@@ -3,12 +3,14 @@ package jdn4ae.cs2110.virginia.edu.gamepractice;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 public class Item {
     private MainCharacter maincharacter;
     float positionX,positionY;
     GamePractice gamePractice;
     private Bitmap bitmap;
+    private Rect hitbox;
 
     public Item(MainCharacter maincharacter,float X, float Y, GamePractice gamePractice) {
         this.maincharacter = maincharacter;
@@ -19,6 +21,8 @@ public class Item {
         options.inSampleSize = 32;
         this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
                 R.drawable.item,options);
+        this.hitbox = new Rect ((int)this.positionX, (int)this.positionY,
+                (int)this.positionX + this.bitmap.getWidth(), (int)this.positionY + this.bitmap.getHeight());
     }
 
     public void add(Item item) {}
