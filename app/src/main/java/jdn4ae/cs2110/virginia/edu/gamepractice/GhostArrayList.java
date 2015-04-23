@@ -40,17 +40,14 @@ public class GhostArrayList extends ArrayList<Ghost> {
             ghost.move();
             if(this.collided(ghost)){
                 System.out.println("collision with ghost");
-                this.remove(ghost);
+
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
             }
             if(ghost.collided(gamePractice.getBullets())){
                 System.out.println("collision with bullets");
-<<<<<<< HEAD
                 iterator.remove();
-=======
->>>>>>> origin/branch2
             }
         }
         autoGenCounter++;
