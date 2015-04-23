@@ -82,6 +82,10 @@ public class Ghost {
         float futureY = this.futureY();
         this.setPositionX(futureX);
         this.setPositionY(futureY);
+        Rect newR = new Rect((int)this.positionX, (int)this.positionY,
+                (int) this.positionX + this.ghostBitmap.getWidth(),(int)this.positionY + this.getGhostBitmap().getHeight());
+        this.setR(newR);
+
     }
 
 
@@ -145,9 +149,23 @@ public class Ghost {
 
         return ghostRect;
     }
+
+    public boolean collides(Rect hit) {
+        //unused code
+        if (Rect.intersects(this.r,hit)==true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Rect getR() {
-        System.out.println("getR in ghost");
+        //System.out.println("getR in ghost");
         return this.r;
+    }
+
+    public void setR(Rect newR) {
+        this.r = newR;
     }
 
     public static boolean ghostCollision(Ghost a, Ghost b){

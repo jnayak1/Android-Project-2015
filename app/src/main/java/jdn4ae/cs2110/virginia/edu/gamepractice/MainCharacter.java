@@ -77,14 +77,13 @@ public class MainCharacter {
         fall(startY);
     }
 
-//    public boolean collides(Rect hit) {
-//        if (Rect.intersects(this.r,hit)==true) {
-//            System.out.println("COLLISION");
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
+    public boolean collides(Rect hit) {
+        if (Rect.intersects(this.r,hit)==true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void fall(float baseHeight){
         this.falling = true;
@@ -153,7 +152,7 @@ public class MainCharacter {
     }
 
     public Rect getR() {
-        System.out.println("getR in MainCharacter");
+        //System.out.println("getR in MainCharacter");
         return this.r;
     }
     public Rect getRect() {
