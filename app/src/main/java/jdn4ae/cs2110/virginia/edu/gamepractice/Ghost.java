@@ -17,6 +17,8 @@ public class Ghost {
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
     private static int autoGenRadius = 200;
+    private static float ghostBuffer = 100;
+
 
 
     protected Ghost(float positionX, float positionY,
@@ -165,8 +167,8 @@ public class Ghost {
         MainCharacter mainCharacter = gamePractice.getMainCharacter();
         float mainCharacterX = mainCharacter.getPositionX();
         float mainCharacterY = mainCharacter.getPositionY();
-        float changeDistanceX = (float)( 2*Math.random() - 1) * autoGenRadius;
-        float changeDistanceY = (float)( Math.random()) * autoGenRadius;
+        float changeDistanceX = (float)( 2*Math.random() - 1) * autoGenRadius + ghostBuffer;
+        float changeDistanceY = (float)( Math.random()) * autoGenRadius + ghostBuffer;
         float ghostX = mainCharacterX + changeDistanceX;
         float ghostY = mainCharacterY + changeDistanceY;
         Ghost ghost = new Ghost(ghostX,ghostY,gamePractice,1);

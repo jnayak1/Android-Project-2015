@@ -14,11 +14,11 @@ public class ItemArrayList extends ArrayList<Item>{
     }
 
     public void update(){
-        if(autoGenCounter == 4){
+        if(autoGenCounter > 50){
             Item.autoGenerate(this,gamePractice);
-            this.setAutoGenCounter(-1);
+            autoGenCounter = 0;
         }
-        this.setAutoGenCounter(++autoGenCounter);
+        autoGenCounter++;
     }
 
     public void onDraw(Canvas canvas) {

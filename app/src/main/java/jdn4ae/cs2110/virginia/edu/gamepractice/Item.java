@@ -1,17 +1,24 @@
 package jdn4ae.cs2110.virginia.edu.gamepractice;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 public class Item {
     private MainCharacter maincharacter;
-    float X,Y;
+    float positionX,positionY;
     GamePractice gamePractice;
+    private Bitmap bitmap;
 
     public Item(MainCharacter maincharacter,float X, float Y, GamePractice gamePractice) {
         this.maincharacter = maincharacter;
-        this.X = X;
-        this.Y = Y;
+        this.positionX = X;
+        this.positionY = Y;
         this.gamePractice = gamePractice;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 4;
+        this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),
+                R.drawable.item,options);
     }
 
     public void add(Item item) {}
@@ -42,6 +49,6 @@ public class Item {
     }
 
     public void onDraw(Canvas canvas) {
-
+        canvas.drawBitmap(bitmap,positionX,positionY,null);
     }
 }
