@@ -15,6 +15,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.lang.System;
@@ -145,6 +146,9 @@ public class GamePractice extends Activity implements OtherButton {
 
         //ammo: update ammo count - part of shoot method; call automatically when picked up
 
+        if (!mainCharacter.getItems().isEmpty()) {
+            mainCharacter.useItem();
+        }
     }
 
     @Override
