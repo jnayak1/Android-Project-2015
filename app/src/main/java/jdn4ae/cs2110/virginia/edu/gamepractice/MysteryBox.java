@@ -64,8 +64,4 @@ public class MysteryBox {
 
 
     }
-
-    public Rect getRect() {
-        return hitbox;
-    }
 }
