@@ -4,11 +4,11 @@
     import java.util.ArrayList;
     import java.util.Collection;
 
-public class ItemArrayList extends ArrayList<MysteryBox>{
+public class MysteryBoxArrayList extends ArrayList<MysteryBox>{
     private GamePractice gamePractice;
     private static int autoGenCounter = 0;
 
-    public ItemArrayList(Collection<? extends MysteryBox> collection, GamePractice gamePractice) {
+    public MysteryBoxArrayList(Collection<? extends MysteryBox> collection, GamePractice gamePractice) {
         super(collection);
         this.gamePractice = gamePractice;
     }
@@ -29,6 +29,6 @@ public class ItemArrayList extends ArrayList<MysteryBox>{
     }
 
     public void setAutoGenCounter(int autoGenCounter) {
-        ItemArrayList.autoGenCounter = autoGenCounter;
+        MysteryBoxArrayList.autoGenCounter = autoGenCounter;
     }
 }

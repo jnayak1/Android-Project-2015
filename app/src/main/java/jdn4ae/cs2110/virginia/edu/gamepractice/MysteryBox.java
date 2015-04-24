@@ -12,6 +12,8 @@ public class MysteryBox {
     GamePractice gamePractice;
     private Bitmap bitmap;
     private Rect hitbox;
+    private long startTime;
+
 
     public MysteryBox(MainCharacter maincharacter, float X, float Y, GamePractice gamePractice) {
         this.maincharacter = maincharacter;
@@ -33,7 +35,7 @@ public class MysteryBox {
     }
 
     public void removeFromGP(){
-        ItemArrayList items = gamePractice.getItems();
+        MysteryBoxArrayList items = gamePractice.getMysteryBoxes();
         items.remove(this);
     }
 
@@ -41,7 +43,7 @@ public class MysteryBox {
         return maincharacter.getItems().contains(this);
     }
 
-    public static void autoGenerate(ItemArrayList itemArrayList, GamePractice gamePractice){
+    public static void autoGenerate(MysteryBoxArrayList mysteryBoxArrayList, GamePractice gamePractice){
         MainCharacter mainCharacter = gamePractice.getMainCharacter();
         float mainCharacterX = mainCharacter.getPositionX();
         float mainCharacterY = mainCharacter.getPositionY();
@@ -50,10 +52,16 @@ public class MysteryBox {
         float randomX = mainCharacterX + changeDistanceX + itemBuffer;
         float randomY = (mainCharacterY + (changeDistanceY * (-1))) - itemBuffer;
         MysteryBox mysteryBox = new MysteryBox(mainCharacter, randomX, randomY, gamePractice);
-        itemArrayList.add(mysteryBox);
+        mysteryBoxArrayList.add(mysteryBox);
     }
 
     public void onDraw(Canvas canvas) {
+        update();
         canvas.drawBitmap(bitmap,positionX,positionY,null);
+    }
+
+    private void update() {
+
+
     }
 }

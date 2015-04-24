@@ -45,7 +45,7 @@ public class GamePractice extends Activity implements OtherButton {
     private long beginingTime;
     private long endTime;
     private long timeLeft;
-    private ItemArrayList items;
+    private MysteryBoxArrayList mysteryBoxes;
 
     private boolean musicIsBound = false;
     private MusicService musicService;
@@ -86,7 +86,7 @@ public class GamePractice extends Activity implements OtherButton {
                     mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
                     ghosts = new GhostArrayList(new ArrayList<Ghost>(), GamePractice.this);
                     bullets = new BulletArrayList(new ArrayList<Bullet>(), GamePractice.this);
-                    items = new ItemArrayList(new ArrayList<MysteryBox>(),GamePractice.this);
+                    mysteryBoxes = new MysteryBoxArrayList(new ArrayList<MysteryBox>(),GamePractice.this);
                 }
             });
         }
@@ -134,7 +134,7 @@ public class GamePractice extends Activity implements OtherButton {
     @Override
     public void itemButtonClick() {
         //TO DO: method called when item button is pushed
-        //should call separate methods for different varieties of items, once items are created.
+        //should call separate methods for different varieties of mysteryBoxes, once mysteryBoxes are created.
         //bomb: display explosion image, kill ghosts within range, update statistics
         //moon gravity: alter gravity for a sett amount of time - temporary new jump method?
         //speed boost: changes movement for set amount of time.
@@ -260,7 +260,8 @@ public class GamePractice extends Activity implements OtherButton {
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
             timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
-            items.onDraw(updateCanvas);
+            mysteryBoxes.onDraw(updateCanvas);
+
         }
     }
 
@@ -390,8 +391,8 @@ public class GamePractice extends Activity implements OtherButton {
         return bullets;
     }
 
-    public ItemArrayList getItems() {
-        return items;
+    public MysteryBoxArrayList getMysteryBoxes() {
+        return mysteryBoxes;
     }
 }
 

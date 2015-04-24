@@ -18,7 +18,7 @@ public class MainCharacter {
     private Bitmap characterBitmap;
     private Bitmap leftCharacterBitmap;
     private Bitmap rightCharacterBitmap;
-    private ArrayList items;
+    private ArrayList<Item> items;
     private boolean directionRight;
     private float positionX, positionY;
     private static float jumpAmount = 120;
@@ -47,14 +47,13 @@ public class MainCharacter {
         this.rect = new Rect((int)this.positionX,(int)this.positionY,
                 (int)this.positionX+characterBitmap.getWidth(),(int)this.positionY + characterBitmap.getHeight() );
         this.gamePractice = gamePractice;
-        items = new ArrayList<MysteryBox>();
+        items = new ArrayList<Item>();
         moveAmount = gamePractice.getMoveAmount();
         directionRight = true;
         jumped = false;
         this.ammo = 10;
         this.rising = false;
         this.falling = false;
-        this.items = new ArrayList<MysteryBox>();
     }
 
     public void moveRight() {
@@ -174,6 +173,11 @@ public class MainCharacter {
             gamePractice.setShootButtonPressed(false);
             System.out.println("shoot maincharacter");
         }
+    }
+
+    public void useItem(){
+        items.get(0).use();
+        items.remove(0);
     }
 
     public float getPositionX() { return positionX; }
