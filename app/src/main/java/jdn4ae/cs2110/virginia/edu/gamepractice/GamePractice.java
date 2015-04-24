@@ -438,6 +438,8 @@ public class GamePractice extends Activity implements OtherButton {
     public long getBombTimer() {
         return bombTimer;
     }
+
+
 }
 
 

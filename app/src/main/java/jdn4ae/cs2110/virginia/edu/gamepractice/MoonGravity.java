@@ -9,6 +9,7 @@ public class MoonGravity extends Item {
     GamePractice gamePractice;
 
     public MoonGravity(MainCharacter mainCharacter, GamePractice gamePractice) {
+        this.gamePractice = gamePractice;
         this.mainCharacter = mainCharacter;
     }
 
