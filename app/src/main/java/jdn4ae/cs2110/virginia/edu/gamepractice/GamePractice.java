@@ -112,6 +112,7 @@ public class GamePractice extends Activity implements OtherButton {
         this.bombBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.bomb,options4);
         bombRect = new Rect();
         offScreenRect = new Rect(-100,-100,-101,-101);
+        bombRect = offScreenRect;
     }
 
     @Override
