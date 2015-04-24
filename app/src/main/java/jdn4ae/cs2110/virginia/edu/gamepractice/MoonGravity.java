@@ -16,11 +16,5 @@ public class MoonGravity extends Item {
     @Override
     public void use() {
         mainCharacter.setJumpAmount(220);
-        gamePractice.setBombTimer(500);
-        while(gamePractice.getBombTimer() != 0){
-            if(gamePractice.getBombTimer() < 20){
-                mainCharacter.setJumpAmount(120);
-            }
-        }
     }
 }
