@@ -52,5 +52,6 @@ public class Bomb extends Item {
         gamePractice.setBombTimer(200);
         gamePractice.setBombX(this.positionX);
         gamePractice.setBombY(this.positionY);
+        gamePractice.setBombRect(this.getRect());
     }
 }

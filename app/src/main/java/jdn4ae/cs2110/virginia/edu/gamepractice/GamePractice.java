@@ -53,6 +53,8 @@ public class GamePractice extends Activity implements OtherButton {
     private long bombTimer;
     private float bombX, bombY;
     private Bitmap bombBitmap;
+    private Rect bombRect;
+    private Rect offScreenRect;
 
 
     @Override
@@ -108,6 +110,8 @@ public class GamePractice extends Activity implements OtherButton {
         bombTimer = 0;
         BitmapFactory.Options options4 = new BitmapFactory.Options();
         this.bombBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.bomb,options4);
+        bombRect = new Rect();
+        offScreenRect = new Rect(-100,-100,-101,-101);
     }
 
     @Override
@@ -279,6 +283,9 @@ public class GamePractice extends Activity implements OtherButton {
                 bombTimer -= 1;
                 updateCanvas.drawBitmap(bombBitmap,bombX,bombY,null);
             }
+            else{
+                bombRect = offScreenRect;
+            }
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
@@ -417,6 +424,14 @@ public class GamePractice extends Activity implements OtherButton {
 
     public MysteryBoxArrayList getMysteryBoxes() {
         return mysteryBoxes;
+    }
+
+    public void setBombRect(Rect bombRect) {
+        this.bombRect = bombRect;
+    }
+
+    public Rect getBombRect() {
+        return bombRect;
     }
 }
 

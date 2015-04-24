@@ -2,6 +2,7 @@ package jdn4ae.cs2110.virginia.edu.gamepractice;
 
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,7 +53,13 @@ public class GhostArrayList extends ArrayList<Ghost> {
                 System.out.println("collision with bullets");
                 iterator.remove();
             }
-
+            if(!(mainCharacter.getItems().isEmpty())) {
+                if (mainCharacter.getItems().get(0) instanceof Bomb) {
+                    if (Rect.intersects(ghost.getGhostRect(), gamePractice.getBombRect())) {
+                        iterator.remove();
+                    }
+                }
+            }
         }
         autoGenCounter++;
     }
