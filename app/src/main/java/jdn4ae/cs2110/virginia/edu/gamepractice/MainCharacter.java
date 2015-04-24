@@ -220,5 +220,23 @@ public class MainCharacter {
     public ArrayList getItems() {
         return items;
     }
+
+    public void addItem() {
+        double random = Math.random()*3;
+
+        if(random < 1 ){
+            // bomb
+            Bomb bomb = new Bomb(this,gamePractice);
+            items.add(bomb);
+
+        }
+        else if(random < 2){
+            // moongraivty
+        }
+        else{
+            // speed boost
+        }
+
+    }
 }
 

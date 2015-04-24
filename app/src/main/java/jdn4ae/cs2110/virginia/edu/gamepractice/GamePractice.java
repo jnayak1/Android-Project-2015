@@ -50,6 +50,9 @@ public class GamePractice extends Activity implements OtherButton {
 
     private boolean musicIsBound = false;
     private MusicService musicService;
+    private long bombTimer;
+    private float bombX, bombY;
+    private Bitmap bombBitmap;
 
 
 
@@ -103,8 +106,9 @@ public class GamePractice extends Activity implements OtherButton {
         timeLeft = endTime - beginingTime;
         TextView timeTextView = (TextView) findViewById(R.id.timeTextView);
         timeTextView.setText(Long.toString(timeLeft));
-
-
+        bombTimer = 0;
+        BitmapFactory.Options options4 = new BitmapFactory.Options();
+        this.bombBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.bomb,options4);
     }
 
     @Override
@@ -202,6 +206,18 @@ public class GamePractice extends Activity implements OtherButton {
         }
     }
 
+    public void setBombTimer(long l) {
+        this.bombTimer = l;
+    }
+
+    public void setBombX(float positionX) {
+        this.bombX = positionX;
+    }
+
+    public void setBombY(float positionY) {
+        this.bombY = positionY;
+    }
+
     public class MapSurfaceView extends SurfaceView implements Runnable {
         Thread thread = null;
         SurfaceHolder surfaceHolder;
@@ -265,6 +281,10 @@ public class GamePractice extends Activity implements OtherButton {
             bullets.onDraw(updateCanvas);
             timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
             mysteryBoxes.onDraw(updateCanvas);
+            if(bombTimer != 0){
+                bombTimer -= 1;
+                updateCanvas.drawBitmap(bombBitmap,bombX,bombY,null);
+            }
 
         }
     }
