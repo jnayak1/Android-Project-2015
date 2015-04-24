@@ -225,15 +225,15 @@ public class MainCharacter {
     public void addItem() {
         double random = Math.random()*3;
 
-        if(random < 1 ){
+        if(random <= 1 ){
             // bomb
             System.out.println("picked up bomb");
             Bomb bomb = new Bomb(this,gamePractice);
             items.add(bomb);
 
         }
-        else if(random < 2){
-            // moongraivty
+        else if(random <= 2 && random > 1){
+            // moongravity
             System.out.println("picked up moon gravity");
             MoonGravity moonGravity = new MoonGravity(this,gamePractice);
             items.add(moonGravity);
