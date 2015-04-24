@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class Item {
+public class MysteryBox {
     private static float itemBuffer = 20;
     private MainCharacter maincharacter;
     float positionX,positionY;
@@ -13,7 +13,7 @@ public class Item {
     private Bitmap bitmap;
     private Rect hitbox;
 
-    public Item(MainCharacter maincharacter,float X, float Y, GamePractice gamePractice) {
+    public MysteryBox(MainCharacter maincharacter, float X, float Y, GamePractice gamePractice) {
         this.maincharacter = maincharacter;
         this.positionX = X;
         this.positionY = Y;
@@ -26,7 +26,7 @@ public class Item {
                 (int)this.positionX + this.bitmap.getWidth(), (int)this.positionY + this.bitmap.getHeight());
     }
 
-    public void add(Item item) {}
+    public void add(MysteryBox mysteryBox) {}
 
     public void removeFromMC() {
         maincharacter.getItems().remove(this);
@@ -49,8 +49,8 @@ public class Item {
         float changeDistanceY = (float)( Math.random()) * 150;
         float randomX = mainCharacterX + changeDistanceX + itemBuffer;
         float randomY = (mainCharacterY + (changeDistanceY * (-1))) - itemBuffer;
-        Item item = new Item(mainCharacter, randomX, randomY, gamePractice);
-        itemArrayList.add(item);
+        MysteryBox mysteryBox = new MysteryBox(mainCharacter, randomX, randomY, gamePractice);
+        itemArrayList.add(mysteryBox);
     }
 
     public void onDraw(Canvas canvas) {

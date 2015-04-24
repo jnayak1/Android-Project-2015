@@ -13,11 +13,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.lang.System;
@@ -89,7 +86,7 @@ public class GamePractice extends Activity implements OtherButton {
                     mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
                     ghosts = new GhostArrayList(new ArrayList<Ghost>(), GamePractice.this);
                     bullets = new BulletArrayList(new ArrayList<Bullet>(), GamePractice.this);
-                    items = new ItemArrayList(new ArrayList<Item>(),GamePractice.this);
+                    items = new ItemArrayList(new ArrayList<MysteryBox>(),GamePractice.this);
                 }
             });
         }
@@ -258,7 +255,7 @@ public class GamePractice extends Activity implements OtherButton {
 
         private void update() {
             // if ghost is killed or item is picked up, delete from ArrayList
-            updateCanvas.drawBitmap(mapBitMap,0,0,null);
+            updateCanvas.drawBitmap(mapBitMap, 0, 0, null);
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);

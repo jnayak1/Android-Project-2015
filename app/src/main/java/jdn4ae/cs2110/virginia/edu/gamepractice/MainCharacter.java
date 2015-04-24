@@ -47,14 +47,14 @@ public class MainCharacter {
         this.rect = new Rect((int)this.positionX,(int)this.positionY,
                 (int)this.positionX+characterBitmap.getWidth(),(int)this.positionY + characterBitmap.getHeight() );
         this.gamePractice = gamePractice;
-        items = new ArrayList<Item>();
+        items = new ArrayList<MysteryBox>();
         moveAmount = gamePractice.getMoveAmount();
         directionRight = true;
         jumped = false;
         this.ammo = 10;
         this.rising = false;
         this.falling = false;
-        this.items = new ArrayList<Item>();
+        this.items = new ArrayList<MysteryBox>();
     }
 
     public void moveRight() {
