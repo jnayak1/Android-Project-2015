@@ -49,7 +49,7 @@ public class Bomb extends Item {
 
     @Override
     public void use() {
-        gamePractice.setBombTimer(200);
+        gamePractice.setBombTimer(100);
         gamePractice.setBombX(this.positionX);
         gamePractice.setBombY(this.positionY);
         gamePractice.setBombRect(this.getRect());
