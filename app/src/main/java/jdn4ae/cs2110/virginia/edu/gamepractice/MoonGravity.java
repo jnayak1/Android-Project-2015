@@ -15,6 +15,7 @@ public class MoonGravity extends Item {
 
     @Override
     public void use() {
+        gamePractice.setMoonGravityTimer(100);
         mainCharacter.setJumpAmount(220);
     }
 }

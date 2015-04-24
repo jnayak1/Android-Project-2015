@@ -248,5 +248,7 @@ public class MainCharacter {
     public void setJumpAmount(float jumpAmount) {
         this.jumpAmount = jumpAmount;
     }
+
+
 }
 
