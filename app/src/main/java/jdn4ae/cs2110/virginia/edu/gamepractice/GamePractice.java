@@ -55,7 +55,6 @@ public class GamePractice extends Activity implements OtherButton {
     private Bitmap bombBitmap;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -276,15 +275,16 @@ public class GamePractice extends Activity implements OtherButton {
         private void update() {
             // if ghost is killed or item is picked up, delete from ArrayList
             updateCanvas.drawBitmap(mapBitMap, 0, 0, null);
+            if(bombTimer != 0){
+                bombTimer -= 1;
+                updateCanvas.drawBitmap(bombBitmap,bombX,bombY,null);
+            }
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
             timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
             mysteryBoxes.onDraw(updateCanvas);
-            if(bombTimer != 0){
-                bombTimer -= 1;
-                updateCanvas.drawBitmap(bombBitmap,bombX,bombY,null);
-            }
+
 
         }
     }

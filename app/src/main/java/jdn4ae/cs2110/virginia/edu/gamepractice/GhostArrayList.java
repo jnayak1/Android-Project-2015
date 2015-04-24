@@ -52,6 +52,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
                 System.out.println("collision with bullets");
                 iterator.remove();
             }
+
         }
         autoGenCounter++;
     }
