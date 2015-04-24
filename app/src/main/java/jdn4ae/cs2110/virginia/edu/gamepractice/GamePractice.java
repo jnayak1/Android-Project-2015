@@ -434,6 +434,10 @@ public class GamePractice extends Activity implements OtherButton {
     public Rect getBombRect() {
         return bombRect;
     }
+
+    public long getBombTimer() {
+        return bombTimer;
+    }
 }
 
 

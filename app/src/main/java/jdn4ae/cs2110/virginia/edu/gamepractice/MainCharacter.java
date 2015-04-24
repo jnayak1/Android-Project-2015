@@ -21,7 +21,7 @@ public class MainCharacter {
     private ArrayList<Item> items;
     private boolean directionRight;
     private float positionX, positionY;
-    private static float jumpAmount = 120;
+    private float jumpAmount;
     private boolean jumped;
     private int ammo;
     private boolean rising;
@@ -54,6 +54,7 @@ public class MainCharacter {
         this.ammo = 10;
         this.rising = false;
         this.falling = false;
+        jumpAmount = 120;
     }
 
     public void moveRight() {
@@ -226,17 +227,26 @@ public class MainCharacter {
 
         if(random < 1 ){
             // bomb
+            System.out.println("picked up bomb");
             Bomb bomb = new Bomb(this,gamePractice);
             items.add(bomb);
 
         }
         else if(random < 2){
             // moongraivty
+            System.out.println("picked up moon gravity");
+            MoonGravity moonGravity = new MoonGravity(this,gamePractice);
+            items.add(moonGravity);
         }
         else{
             // speed boost
+            System.out.println("picked up speed boost");
         }
 
+    }
+
+    public void setJumpAmount(float jumpAmount) {
+        this.jumpAmount = jumpAmount;
     }
 }
 
