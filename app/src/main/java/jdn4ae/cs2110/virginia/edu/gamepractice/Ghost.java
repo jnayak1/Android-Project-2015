@@ -6,6 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Ghost {
 
     private int size;
@@ -192,6 +195,21 @@ public class Ghost {
         for(Bullet bullet : bullets){
             if(Rect.intersects(bullet.getRect(),this.getGhostRect())){
                 value = true;
+            }
+        }
+        return value;
+    }
+
+    public boolean collided(ArrayList items) {
+        boolean value = false;
+        Iterator iterator = items.iterator();
+        while(iterator.hasNext()){
+            Object item = iterator.next();
+            if(item instanceof Bomb){
+                Bomb bomb = (Bomb) item;
+                if(Rect.intersects(this.getGhostRect(), bomb.getRect())){
+                    value = true;
+                }
             }
         }
         return value;

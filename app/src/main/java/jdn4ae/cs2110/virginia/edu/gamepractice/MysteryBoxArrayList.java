@@ -4,18 +4,18 @@
     import java.util.ArrayList;
     import java.util.Collection;
 
-public class ItemArrayList extends ArrayList<Item>{
+public class MysteryBoxArrayList extends ArrayList<MysteryBox>{
     private GamePractice gamePractice;
     private static int autoGenCounter = 0;
 
-    public ItemArrayList(Collection<? extends Item> collection, GamePractice gamePractice) {
+    public MysteryBoxArrayList(Collection<? extends MysteryBox> collection, GamePractice gamePractice) {
         super(collection);
         this.gamePractice = gamePractice;
     }
 
     public void update(){
         if(autoGenCounter > 50){
-            Item.autoGenerate(this,gamePractice);
+            MysteryBox.autoGenerate(this, gamePractice);
             autoGenCounter = 0;
         }
         autoGenCounter++;
@@ -23,12 +23,12 @@ public class ItemArrayList extends ArrayList<Item>{
 
     public void onDraw(Canvas canvas) {
         this.update();
-        for(Item item : this){
-            item.onDraw(canvas);
+        for(MysteryBox mysteryBox : this){
+            mysteryBox.onDraw(canvas);
         }
     }
 
     public void setAutoGenCounter(int autoGenCounter) {
-        ItemArrayList.autoGenCounter = autoGenCounter;
+        MysteryBoxArrayList.autoGenCounter = autoGenCounter;
     }
 }

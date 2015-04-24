@@ -41,7 +41,6 @@ public class GhostArrayList extends ArrayList<Ghost> {
             ghost.move();
             if(this.collided(ghost)){
                 System.out.println("collision with ghost");
-
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
@@ -51,6 +50,9 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(ghost.collided(gamePractice.getBullets())){
                 System.out.println("collision with bullets");
+                iterator.remove();
+            }
+            if(ghost.collided(mainCharacter.getItems())){
                 iterator.remove();
             }
         }

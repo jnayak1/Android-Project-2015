@@ -18,7 +18,7 @@ public class MainCharacter {
     private Bitmap characterBitmap;
     private Bitmap leftCharacterBitmap;
     private Bitmap rightCharacterBitmap;
-    private ArrayList items;
+    private ArrayList<Item> items;
     private boolean directionRight;
     private float positionX, positionY;
     private static float jumpAmount = 120;
@@ -54,7 +54,6 @@ public class MainCharacter {
         this.ammo = 10;
         this.rising = false;
         this.falling = false;
-        this.items = new ArrayList<Item>();
     }
 
     public void moveRight() {
@@ -174,6 +173,11 @@ public class MainCharacter {
             gamePractice.setShootButtonPressed(false);
             System.out.println("shoot maincharacter");
         }
+    }
+
+    public void useItem(){
+        items.get(0).use();
+        items.remove(0);
     }
 
     public float getPositionX() { return positionX; }
