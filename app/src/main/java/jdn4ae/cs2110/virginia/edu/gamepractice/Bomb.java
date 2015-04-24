@@ -19,8 +19,8 @@ public class Bomb extends Item {
     public Bomb(MainCharacter maincharacter, GamePractice gamePractice) {
         this.mainCharacter = maincharacter;
         this.gamePractice = gamePractice;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),R.drawable.bomb,options);
+        BitmapFactory.Options options4 = new BitmapFactory.Options();
+        this.bitmap = BitmapFactory.decodeResource(gamePractice.getResources(),R.drawable.bomb,options4);
         if(maincharacter.isDirectionRight()){
             this.positionX = maincharacter.getPositionX() + 50;
             this.positionY= maincharacter.getPositionY() - 10;
@@ -49,6 +49,8 @@ public class Bomb extends Item {
 
     @Override
     public void use() {
-
+        gamePractice.setBombTimer(200);
+        gamePractice.setBombX(this.positionX);
+        gamePractice.setBombY(this.positionY);
     }
 }
