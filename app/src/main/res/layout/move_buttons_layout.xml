@@ -7,8 +7,8 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/control_button_width"
-        android:layout_height="@dimen/control_button_height"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:hapticFeedbackEnabled="true"
         android:id="@+id/up_button"
         android:layout_centerHorizontal="true"
@@ -17,8 +17,8 @@
         />
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/control_button_width"
-        android:layout_height="@dimen/control_button_height"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:hapticFeedbackEnabled="true"
         android:id="@+id/right_button"
         android:layout_marginRight="30dp"
@@ -30,8 +30,8 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="@dimen/control_button_width"
-        android:layout_height="@dimen/control_button_height"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:hapticFeedbackEnabled="true"
         android:id="@+id/left_button"
         android:layout_marginLeft="30dp"
