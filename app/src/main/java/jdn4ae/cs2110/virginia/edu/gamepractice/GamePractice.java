@@ -329,7 +329,12 @@ public class GamePractice extends Activity implements OtherButton {
                 setTime = System.currentTimeMillis();
                 secondsToMinutesCounter++;
             }
-            if(timeLeftSeconds == 0){
+            if(timeLeftSeconds == 0 && timeLeftMinutes == 0){
+                Intent gameOverIntent = new Intent();
+                Intent intent = new Intent(GamePractice.this,EndGame.class);
+                GamePractice.this.startActivity(intent);
+            }
+            if(timeLeftSeconds == -1){
                timeLeftSeconds = 59;
             }
             if(secondsToMinutesCounter == 60){
