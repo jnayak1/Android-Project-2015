@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".GamePractice"
     android:weightSum="1"
-    android:background="#b24f71e1"
-    android:focusableInTouchMode="false"
-    android:id="@+id/">
+    android:background="#e3434141"
+    android:focusableInTouchMode="false">
 
     <Button
         android:layout_width="wrap_content"
@@ -63,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="which you can use with the item button"
+        android:text="which you can use with the item button!"
         android:id="@+id/textView5"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true" />
