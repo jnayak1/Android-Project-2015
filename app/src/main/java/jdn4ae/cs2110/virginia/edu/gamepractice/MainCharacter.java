@@ -224,6 +224,7 @@ public class MainCharacter {
 
     public void addItem() {
         double random = Math.random()*3;
+        this.ammo += 5;
 
         if(random <= 1 ){
             // bomb
@@ -241,6 +242,8 @@ public class MainCharacter {
         else{
             // speed boost
             System.out.println("picked up speed boost");
+            SpeedBoost speedBoost = new SpeedBoost(gamePractice);
+            items.add(speedBoost);
         }
 
     }
@@ -249,6 +252,8 @@ public class MainCharacter {
         this.jumpAmount = jumpAmount;
     }
 
-
+    public void setMoveAmount(int moveAmount) {
+        this.moveAmount = moveAmount;
+    }
 }
 

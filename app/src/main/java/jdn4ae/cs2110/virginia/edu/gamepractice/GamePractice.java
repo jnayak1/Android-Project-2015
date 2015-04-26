@@ -48,6 +48,7 @@ public class GamePractice extends Activity implements OtherButton {
     private long timeLeft;
     private MysteryBoxArrayList mysteryBoxes;
     private long moonGravityTimer;
+    private long speedBoostTimer;
 
     private boolean musicIsBound = false;
     private MusicService musicService;
@@ -292,6 +293,13 @@ public class GamePractice extends Activity implements OtherButton {
             else{
                 mainCharacter.setJumpAmount(120);
             }
+            if(speedBoostTimer != 0){
+                speedBoostTimer -= 1;
+            }
+            else{
+                mainCharacter.setMoveAmount(10);
+                GamePractice.this.setMoveAmount(10);
+            }
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
@@ -446,6 +454,14 @@ public class GamePractice extends Activity implements OtherButton {
 
     public void setMoonGravityTimer(long moonGravityTimer) {
         this.moonGravityTimer = moonGravityTimer;
+    }
+
+    public void setSpeedBoostTimer(long speedBoostTimer) {
+        this.speedBoostTimer = speedBoostTimer;
+    }
+
+    public void setMoveAmount(int moveAmount) {
+        this.moveAmount = moveAmount;
     }
 }
 
