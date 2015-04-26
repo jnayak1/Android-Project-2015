@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Do this..."
+        android:text="Use move buttons to jump and avoid ghosts"
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Do this..."
+        android:text="Use the shoot button to kill ghosts"
         android:id="@+id/textView3"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Do this..."
+        android:text="Hit mystery boxes to get mystery items,"
         android:id="@+id/textView4"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true" />
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Do this..."
+        android:text="which you can use with the item button!"
         android:id="@+id/textView5"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true" />
