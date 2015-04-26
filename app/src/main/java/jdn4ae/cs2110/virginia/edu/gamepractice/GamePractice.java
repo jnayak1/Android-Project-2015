@@ -299,9 +299,12 @@ public class GamePractice extends Activity implements OtherButton {
             // if ghost is killed or item is picked up, delete from ArrayList
 
             updateCanvas.drawBitmap(mapBitMap, 0, 0, null);
-            if(bombTimer != 0){
+            if(bombTimer > 0){
                 bombTimer -= 1;
                 updateCanvas.drawBitmap(bombBitmap,bombX,bombY,null);
+            }
+            else{
+                bombRect = offScreenRect;
             }
             if(moonGravityTimer != 0){
                 moonGravityTimer -= 1;
