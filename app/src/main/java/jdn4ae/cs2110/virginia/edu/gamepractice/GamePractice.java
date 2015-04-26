@@ -107,8 +107,6 @@ public class GamePractice extends Activity implements OtherButton {
         beginingTime = System.currentTimeMillis();
         endTime = beginingTime + 4*(1000)*(60);
         timeLeft = endTime - beginingTime;
-        TextView timeTextView = (TextView) findViewById(R.id.timeTextView);
-        timeTextView.setText(Long.toString(timeLeft));
         bombTimer = 0;
         BitmapFactory.Options options4 = new BitmapFactory.Options();
         this.bombBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.bomb,options4);

@@ -9,14 +9,21 @@
 
     <fragment
         android:layout_width="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:layout_height="match_parent"
         android:id="@+id/other_buttons"
         class="jdn4ae.cs2110.virginia.edu.gamepractice.OtherButtonsFragment"/>
-
     <fragment
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:id="@+id/statistics"
+        class="jdn4ae.cs2110.virginia.edu.gamepractice.StatisticsFragment"
+        />
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_weight="3"
         android:layout_height="match_parent"
         android:id="@+id/move_buttons"
         class="jdn4ae.cs2110.virginia.edu.gamepractice.MoveButtonsFragment"/>
