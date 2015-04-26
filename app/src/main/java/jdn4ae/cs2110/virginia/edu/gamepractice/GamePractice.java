@@ -46,7 +46,9 @@ public class GamePractice extends Activity implements OtherButton {
     private static final long START_UP_TIME = 2000;
     private long beginingTime;
     private long endTime;
-    private long timeLeft;
+    private long setTime;
+    private long timeLeftMinutes;
+    private long timeLeftSeconds;
     private MysteryBoxArrayList mysteryBoxes;
     private long moonGravityTimer;
     private long speedBoostTimer;
@@ -114,8 +116,9 @@ public class GamePractice extends Activity implements OtherButton {
         startService(music);
 
         beginingTime = System.currentTimeMillis();
-        endTime = beginingTime + 4*(1000)*(60);
-        timeLeft = endTime - beginingTime;
+        endTime = (beginingTime + 4*(1000)*(60)) - 1000;
+        timeLeftMinutes = TimeUnit.SECONDS.toMinutes((endTime - beginingTime) / 1000);
+        timeLeftSeconds = ((endTime - beginingTime) / 1000) % 60;
         bombTimer = 0;
         BitmapFactory.Options options4 = new BitmapFactory.Options();
         this.bombBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.bomb,options4);
@@ -237,10 +240,13 @@ public class GamePractice extends Activity implements OtherButton {
         Thread thread = null;
         SurfaceHolder surfaceHolder;
         volatile boolean running = false;
+        long secondsToMinutesCounter;
 
         public MapSurfaceView(Context context) {
             super(context);
             surfaceHolder = getHolder();
+            setTime = System.currentTimeMillis();
+            secondsToMinutesCounter = 0;
 
         }
         public void onResumeMapSurfaceView(){
@@ -291,6 +297,7 @@ public class GamePractice extends Activity implements OtherButton {
 
         private void update() {
             // if ghost is killed or item is picked up, delete from ArrayList
+
             updateCanvas.drawBitmap(mapBitMap, 0, 0, null);
             if(bombTimer != 0){
                 bombTimer -= 1;
@@ -314,6 +321,18 @@ public class GamePractice extends Activity implements OtherButton {
             bullets.onDraw(updateCanvas);
             mysteryBoxes.onDraw(updateCanvas);
             new StatisticsAsyncTask().execute();
+            if(System.currentTimeMillis() > setTime + 1000) {
+                timeLeftSeconds -= 1;
+                setTime = System.currentTimeMillis();
+                secondsToMinutesCounter++;
+            }
+            if(timeLeftSeconds == 0){
+               timeLeftSeconds = 59;
+            }
+            if(secondsToMinutesCounter == 60){
+                timeLeftMinutes-=1;
+                secondsToMinutesCounter = 0;
+            }
         }
     }
 
@@ -490,6 +509,8 @@ public class GamePractice extends Activity implements OtherButton {
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
             StatisticsFragment.getKillsTextView().setText(String.valueOf(kills));
+            StatisticsFragment.getTimerTextView().setText(String.valueOf(timeLeftMinutes)
+                    + ":" + String.valueOf(timeLeftSeconds));
         }
     }
 
