@@ -3,6 +3,7 @@ package jdn4ae.cs2110.virginia.edu.gamepractice;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,10 +52,12 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(ghost.collided(gamePractice.getBullets())){
                 System.out.println("collision with bullets");
+                gamePractice.incKills();
                 iterator.remove();
             }
             if (Rect.intersects(ghost.getGhostRect(), gamePractice.getBombRect())) {
                 iterator.remove();
+                gamePractice.incKills();
             }
         }
         autoGenCounter++;

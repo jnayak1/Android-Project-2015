@@ -13,8 +13,8 @@ import android.widget.TextView;
  */
 public class StatisticsFragment extends Fragment {
 
-    TextView killsTextView;
-    TextView timerTextView;
+    private static TextView killsTextView;
+    private static TextView timerTextView;
 
 
     @Nullable
@@ -22,4 +22,21 @@ public class StatisticsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.statistics_layout,container,false);
     }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        killsTextView = (TextView) getActivity().findViewById(R.id.killsTextView);
+        timerTextView = (TextView) getActivity().findViewById(R.id.timerTextView);
+    }
+
+    public static TextView getKillsTextView(){
+        return killsTextView;
+    }
+
+    public static TextView getTimerTextView(){
+       return timerTextView;
+    }
+
 }

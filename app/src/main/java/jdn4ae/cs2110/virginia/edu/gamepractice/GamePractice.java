@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.SurfaceHolder;
@@ -58,6 +59,13 @@ public class GamePractice extends Activity implements OtherButton {
     private Rect bombRect;
     private Rect offScreenRect;
 
+    private int kills;
+    private TextView killsTextView;
+
+    private long time;
+    private TextView timeTextView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,18 +93,19 @@ public class GamePractice extends Activity implements OtherButton {
                     mapSurfaceView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     surfaceViewBitMapWidth = mapSurfaceView.getWidth();
                     surfaceViewBitMapHeight = mapSurfaceView.getHeight();
-                    surfaceViewBitMapDSTRect = new Rect(0,0,
-                            Math.round(surfaceViewBitMapWidth),Math.round(surfaceViewBitMapHeight));
+                    surfaceViewBitMapDSTRect = new Rect(0, 0,
+                            Math.round(surfaceViewBitMapWidth), Math.round(surfaceViewBitMapHeight));
                     surfaceViewBitMapSRCRect = new Rect(surfaceViewBitMapDSTRect);
-                    characterY = (surfaceViewBitMapHeight*3)/4; // determines height of where character is positioned
-                    characterX = surfaceViewBitMapWidth /2;
-                    mainCharacter = new MainCharacter(characterX,characterY,GamePractice.this);
+                    characterY = (surfaceViewBitMapHeight * 3) / 4; // determines height of where character is positioned
+                    characterX = surfaceViewBitMapWidth / 2;
+                    mainCharacter = new MainCharacter(characterX, characterY, GamePractice.this);
                     ghosts = new GhostArrayList(new ArrayList<Ghost>(), GamePractice.this);
                     bullets = new BulletArrayList(new ArrayList<Bullet>(), GamePractice.this);
-                    mysteryBoxes = new MysteryBoxArrayList(new ArrayList<MysteryBox>(),GamePractice.this);
+                    mysteryBoxes = new MysteryBoxArrayList(new ArrayList<MysteryBox>(), GamePractice.this);
                 }
             });
         }
+
         lrButtonHandler = new LRButtonHandler();
         upButtonHandler = new UpButtonHandler();
 
@@ -114,6 +123,7 @@ public class GamePractice extends Activity implements OtherButton {
         offScreenRect = new Rect(-100,-100,-101,-101);
         bombRect = offScreenRect;
         moonGravityTimer = 0;
+        kills = 0;
     }
 
     @Override
@@ -231,6 +241,7 @@ public class GamePractice extends Activity implements OtherButton {
         public MapSurfaceView(Context context) {
             super(context);
             surfaceHolder = getHolder();
+
         }
         public void onResumeMapSurfaceView(){
             running = true;
@@ -301,10 +312,8 @@ public class GamePractice extends Activity implements OtherButton {
             mainCharacter.onDraw(updateCanvas);
             ghosts.onDraw(updateCanvas);
             bullets.onDraw(updateCanvas);
-            timeLeft = TimeUnit.MILLISECONDS.toSeconds((endTime - System.currentTimeMillis()));
             mysteryBoxes.onDraw(updateCanvas);
-
-
+            new StatisticsAsyncTask().execute();
         }
     }
 
@@ -461,6 +470,29 @@ public class GamePractice extends Activity implements OtherButton {
     public void setMoveAmount(int moveAmount) {
         this.moveAmount = moveAmount;
     }
+
+    public void incKills() {
+        this.kills += 1;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public class StatisticsAsyncTask extends AsyncTask<Void,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            publishProgress();
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+            StatisticsFragment.getKillsTextView().setText(String.valueOf(kills));
+        }
+    }
+
 }
 
 
