@@ -55,7 +55,7 @@ public class GhostArrayList extends ArrayList<Ghost> {
                 gamePractice.incKills();
                 iterator.remove();
             }
-            if (Rect.intersects(ghost.getGhostRect(), gamePractice.getBombRect())) {
+            if (Rect.intersects(ghost.getGhostShootRect(), gamePractice.getBombRect())) {
                 iterator.remove();
                 gamePractice.incKills();
             }

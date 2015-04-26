@@ -153,7 +153,7 @@ public class MainCharacter {
     }
 
     public boolean collided(Ghost a){
-        return Rect.intersects(a.getGhostRect(), this.getRect());
+        return Rect.intersects(a.getGhostHitRect(), this.getRect());
     }
 
     public void shoot(BulletArrayList bulletArrayList){

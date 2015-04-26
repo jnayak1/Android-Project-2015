@@ -108,7 +108,7 @@ public class Bullet {
     }
 
     public boolean ghostCollision(Ghost a){
-        return Rect.intersects(a.getGhostRect(),this.getRect());
+        return Rect.intersects(a.getGhostShootRect(),this.getRect());
     }
 
     @Override

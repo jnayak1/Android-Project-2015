@@ -16,7 +16,8 @@ public class Ghost {
     private MainCharacter mainCharacter;
     private Bitmap ghostBitmap;
     private float positionX, positionY;
-    private Rect ghostRect;
+    private Rect ghostHitRect;
+    private Rect ghostShootRect;
     private GamePractice gamePractice;
     public final static int MAX_SIZE = 8;
     private static int autoGenRadius = 200;
@@ -35,9 +36,12 @@ public class Ghost {
         this.gamePractice = gamePractice;
         this.size = size; // max size 8, won't get any bigger after that
         this.mainCharacter = gamePractice.getMainCharacter();
-        ghostRect = new Rect((int) positionX,(int) positionY,
+        ghostHitRect = new Rect((int) positionX,(int) positionY + 10,
                 (int) positionX + ghostBitmap.getWidth(),
-                (int) positionY + ghostBitmap.getHeight());
+                (int) positionY - 10 + ghostBitmap.getHeight());
+        ghostShootRect = new Rect((int) positionX,(int) positionY - 10,
+                (int) positionX + ghostBitmap.getWidth(),
+                (int) positionY + 10  + ghostBitmap.getHeight());
     }
 
     public float xDiff(){
@@ -84,8 +88,10 @@ public class Ghost {
     }
 
     public void move(){
-        this.moveGhostRectX((int) this.changeX());
-        this.moveGhostRectY((int) this.changeY());
+        this.moveGhostHitRectX((int) this.changeX());
+        this.moveGhostHitRectY((int) this.changeY());
+        this.moveGhostShootRectX((int) this.changeX());
+        this.moveGhostShootRectY((int) this.changeY());
         float futureX = this.futureX();
         float futureY = this.futureY();
         this.setPositionX(futureX);
@@ -94,7 +100,7 @@ public class Ghost {
 
 
     public void onDraw(Canvas canvas){
-        if(Rect.intersects(gamePractice.getSurfaceViewBitMapSRCRect(), this.getGhostRect())){
+        if(Rect.intersects(gamePractice.getSurfaceViewBitMapSRCRect(), this.getGhostHitRect())){
             canvas.drawBitmap(this.getGhostBitmap(), this.getPositionX(),
                     this.getPositionY(), null);
         }
@@ -145,25 +151,46 @@ public class Ghost {
     }
 
 
-    public Rect getGhostRect() {
-        return this.ghostRect;
+    public Rect getGhostHitRect() {
+        return this.ghostHitRect;
     }
 
-    public void setGhostRect(int left, int top, int right, int bottom) {
-        this.ghostRect.left = left;
-        this.ghostRect.right = right;
-        this.ghostRect.top = top;
-        this.ghostRect.bottom = bottom;
+    public Rect getGhostShootRect() {
+        return this.ghostShootRect;
     }
 
-    public void moveGhostRectX(int moveAmount){
-        this.ghostRect.left += moveAmount;
-        this.ghostRect.right += moveAmount;
+    public void setGhostHitRect(int left, int top, int right, int bottom) {
+        this.ghostHitRect.left = left;
+        this.ghostHitRect.right = right;
+        this.ghostHitRect.top = top;
+        this.ghostHitRect.bottom = bottom;
     }
 
-    public void moveGhostRectY(int moveAmount){
-        this.ghostRect.top += moveAmount;
-        this.ghostRect.bottom += moveAmount;
+    public void setGhostShootRect(int left, int top, int right, int bottom) {
+        this.ghostShootRect.left = left;
+        this.ghostShootRect.right = right;
+        this.ghostShootRect.top = top;
+        this.ghostShootRect.bottom = bottom;
+    }
+
+    public void moveGhostHitRectX(int moveAmount){
+        this.ghostHitRect.left += moveAmount;
+        this.ghostHitRect.right += moveAmount;
+    }
+
+    public void moveGhostShootRectX(int moveAmount){
+        this.ghostShootRect.left += moveAmount;
+        this.ghostShootRect.right += moveAmount;
+    }
+
+    public void moveGhostHitRectY(int moveAmount){
+        this.ghostHitRect.top += moveAmount;
+        this.ghostHitRect.bottom += moveAmount;
+    }
+
+    public void moveGhostShootRectY(int moveAmount){
+        this.ghostShootRect.top += moveAmount;
+        this.ghostShootRect.bottom += moveAmount;
     }
 
     public static void autoGenerate(GhostArrayList ghostArrayList, GamePractice gamePractice){
@@ -185,7 +212,7 @@ public class Ghost {
         if(this == o) return true;
         if(o instanceof Ghost){
             Ghost ghostO = (Ghost) o;
-            return Rect.intersects(this.ghostRect,((Ghost) o).getGhostRect());
+            return Rect.intersects(this.ghostShootRect,((Ghost) o).getGhostShootRect());
         }
         return false;
     }
@@ -193,7 +220,7 @@ public class Ghost {
     public boolean collided(BulletArrayList bullets) {
         boolean value = false;
         for(Bullet bullet : bullets){
-            if(Rect.intersects(bullet.getRect(),this.getGhostRect())){
+            if(Rect.intersects(bullet.getRect(),this.getGhostShootRect())){
                 value = true;
             }
         }
@@ -207,7 +234,7 @@ public class Ghost {
             Object item = iterator.next();
             if(item instanceof Bomb){
                 Bomb bomb = (Bomb) item;
-                if(Rect.intersects(this.getGhostRect(), bomb.getRect())){
+                if(Rect.intersects(this.getGhostShootRect(), bomb.getRect())){
                     value = true;
                 }
             }
