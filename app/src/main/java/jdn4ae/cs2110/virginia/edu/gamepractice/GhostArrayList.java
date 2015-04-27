@@ -46,9 +46,9 @@ public class GhostArrayList extends ArrayList<Ghost> {
             }
             if(mainCharacter.collided(ghost)){
                 System.out.println("collision with main character");
-//                Intent intent = new Intent(gamePractice,EndGame.class);
-//
-//                gamePractice.startActivity(intent);
+                Intent intent = new Intent(gamePractice,EndGame.class);
+
+                gamePractice.startActivity(intent);
             }
             if(ghost.collided(gamePractice.getBullets())) {
                 System.out.println("collision with bullets");
